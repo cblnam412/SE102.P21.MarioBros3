@@ -34,9 +34,7 @@ void CMushroom::OnCollisionWith(LPCOLLISIONEVENT e)
     {
         if (vx == 0) {
             vx = -MUSHROOM_WALKING_SPEED;
-            
         }
-        ay = 0;
         vy = 0;
     }
     else if (e->nx != 0) 

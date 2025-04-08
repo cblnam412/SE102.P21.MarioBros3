@@ -5,6 +5,7 @@ brick.txt
 coin.txt
 goomba.txt
 cloud.txt
+koopas.txt
 mushroom.txt
 #
 [OBJECTS]
@@ -53,8 +54,8 @@ mushroom.txt
 4	160	120
 4	180	120
 
-#Goomba
-2	300	10
+#KOOPAS
+3	300	10
 
 #Platform
 5	90	136	16	15	16	51000	52000	53000

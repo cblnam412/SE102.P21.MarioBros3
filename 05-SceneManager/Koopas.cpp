@@ -52,10 +52,14 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vy += ay * dt;
 	vx += ax * dt;
 
-	if ((state == KOOPAS_STATE_SHELL) && (GetTickCount64() - shell_start > KOOPAS_SHELL_TIMEOUT))
+	if ((state == KOOPAS_STATE_SHELL)) // && (GetTickCount64() - shell_start > KOOPAS_SHELL_TIMEOUT)
 	{
-		isDeleted = true;
-		return;
+		if (GetTickCount64() - shell_start > KOOPAS_SHELL_TIMEOUT) {
+			if (GetTickCount64() - shell_start > KOOPAS_SHELL_TIMEOUT + 1000) {
+				SetState(KOOPAS_STATE_WALKING);
+			} else 
+				vx = -vx;
+		}
 	}
 
 	CGameObject::Update(dt, coObjects);
@@ -89,6 +93,8 @@ void CKoopas::SetState(int state)
 		break;
 	case KOOPAS_STATE_WALKING:
 		vx = -KOOPAS_WALKING_SPEED;
+		y -= (KOOPAS_BBOX_HEIGHT - SHELL_BBOX_HEIGHT) / 2;
+		ay = KOOPAS_GRAVITY;
 		break;
 	}
 }

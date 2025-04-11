@@ -48,7 +48,6 @@ mushroom.txt
 1	352	164
 
 #COIN
-4	100	120
 4	120	120
 4	140	120
 4	160	120
@@ -66,3 +65,6 @@ mushroom.txt
 
 #Mushroom
 6	250	60
+
+#Leaf
+7	100	120

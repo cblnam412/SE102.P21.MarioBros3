@@ -1,25 +1,25 @@
 #pragma once
+
 #include "GameObject.h"
+#include "Animation.h"
+#include "Animations.h"
 
-#define LEAF_BBOX_WIDTH  16
+#define ID_ANI_LEAF 12000
+
+#define	LEAF_WIDTH 16
+#define LEAF_BBOX_WIDTH 16
 #define LEAF_BBOX_HEIGHT 16
+#define LEAF_GRAVITY 0.5f;
 
-#define LEAF_SPEED_Y     0.02f
-
-#define ID_ANI_LEAF      30001
-
-class CLeaf : public CGameObject
-{
+class CLeaf : public CGameObject {
 protected:
-    float ay; 
-
+	int ay;
 public:
-    CLeaf();
+	CLeaf(float x, float y);
+	void Render();
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+	void GetBoundingBox(float& l, float& t, float& r, float& b);
+	int IsBlocking() { return 0; }
 
-    void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) override;
-    void Render() override;
-    void OnNoCollision(DWORD dt) override;
-    void OnCollisionWith(LPCOLLISIONEVENT e) override {}
-
-    void GetBoundingBox(float& l, float& t, float& r, float& b) override;
+	virtual int IsCollidable() { return 1; };
 };

@@ -1,4 +1,7 @@
+﻿#define _USE_MATH_DEFINES  
+#include <cmath>
 #include "Koopas.h"
+
 
 CKoopas::CKoopas(float x, float y) :CGameObject(x, y)
 {
@@ -52,13 +55,46 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vy += ay * dt;
 	vx += ax * dt;
 
-	if ((state == KOOPAS_STATE_SHELL)) // && (GetTickCount64() - shell_start > KOOPAS_SHELL_TIMEOUT)
+	if (state == KOOPAS_STATE_SHELL)
 	{
-		if (GetTickCount64() - shell_start > KOOPAS_SHELL_TIMEOUT) {
-			if (GetTickCount64() - shell_start > KOOPAS_SHELL_TIMEOUT + 1000) {
-				SetState(KOOPAS_STATE_WALKING);
-			} else 
-				vx = -vx;
+		DWORD shell_time = GetTickCount64() - shell_start;
+
+		if (shell_time > KOOPAS_SHELL_TIMEOUT)
+		{
+			DWORD shake_duration = 1500;
+			DWORD shake_time = shell_time - KOOPAS_SHELL_TIMEOUT;
+
+			if (shake_time <= shake_duration)
+			{
+				float frequency = 10.0f;
+				float shake_speed = 0.05f;
+				vx = shake_speed * sin(2 * M_PI * frequency * shake_time / 1000.0f);
+			}
+			else
+			{
+				if (state == KOOPAS_STATE_SHELL)
+				{
+					SetState(KOOPAS_STATE_RELIVE);
+				}
+			}
+		}
+	}
+
+	if (state == KOOPAS_STATE_RELIVE)
+	{
+		DWORD relive_time = GetTickCount64() - shell_start;
+
+		const DWORD shake_duration = 1000;
+
+		if (relive_time <= shake_duration)
+		{
+			const float frequency = 12.0f;
+			const float shake_speed = 0.08f;
+			vx = shake_speed * sin(2 * M_PI * frequency * relive_time / 1000.0f);
+		}
+		else
+		{
+			SetState(KOOPAS_STATE_WALKING);
 		}
 	}
 
@@ -73,6 +109,9 @@ void CKoopas::Render()
 	if (state == KOOPAS_STATE_SHELL)
 	{
 		aniId = ID_ANI_KOOPAS_SHELL;
+	}
+	else if (state == KOOPAS_STATE_RELIVE) {
+		aniId = ID_ANI_KOOPAS_RELIVE;
 	}
 
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
@@ -95,6 +134,12 @@ void CKoopas::SetState(int state)
 		vx = -KOOPAS_WALKING_SPEED;
 		y -= (KOOPAS_BBOX_HEIGHT - SHELL_BBOX_HEIGHT) / 2;
 		ay = KOOPAS_GRAVITY;
+		break;
+	case KOOPAS_STATE_RELIVE:
+		shell_start = GetTickCount64();
+		vx = 0;
+		vy = 0;
+		ay = 0;
 		break;
 	}
 }

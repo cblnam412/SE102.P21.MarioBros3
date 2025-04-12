@@ -20,7 +20,7 @@ void CKoopas::GetBoundingBox(float& left, float& top, float& right, float& botto
 		right = left + KOOPAS_BBOX_WIDTH;
 		bottom = top + SHELL_BBOX_HEIGHT;
 	}
-	else
+	else if (state == KOOPAS_STATE_WALKING)
 	{
 		left = x - KOOPAS_BBOX_WIDTH / 2;
 		top = y - KOOPAS_BBOX_HEIGHT / 2;

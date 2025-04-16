@@ -7,7 +7,7 @@ CLeaf::CLeaf(float x, float y) :CGameObject(x, y)
 
 void CLeaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	y = y + LEAF_GRAVITY;
+	vy += ay * dt;
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);

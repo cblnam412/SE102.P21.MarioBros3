@@ -4,7 +4,7 @@
 #include "Animation.h"
 #include "Animations.h"
 
-#define ID_ANI_LEAF 12000
+#define ID_ANI_LEAF 13000
 
 #define	LEAF_WIDTH 16
 #define LEAF_BBOX_WIDTH 16
@@ -21,5 +21,5 @@ public:
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 	int IsBlocking() { return 0; }
 
-	virtual int IsCollidable() { return 1; };
+	virtual int IsCollidable() { return 0; };
 };

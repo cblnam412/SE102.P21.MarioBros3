@@ -4,6 +4,7 @@ mario.txt
 coin.txt
 cloud.txt
 brick.txt
+leaf.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -33,4 +34,5 @@ brick.txt
 #Portal 
 50	200	160	216	180	1
 
-
+#Leaf
+7	200	120

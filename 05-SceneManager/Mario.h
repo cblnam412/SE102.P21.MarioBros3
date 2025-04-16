@@ -82,9 +82,7 @@
 
 #define GROUND_Y 160.0f
 
-
-
-
+// BIG MARIO
 #define	MARIO_LEVEL_SMALL	1
 #define	MARIO_LEVEL_BIG		2
 
@@ -100,6 +98,15 @@
 
 
 #define MARIO_UNTOUCHABLE_TIME 2500
+
+
+// TAIL MARIO
+
+
+
+
+
+
 
 class CMario : public CGameObject
 {
@@ -119,9 +126,10 @@ class CMario : public CGameObject
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
 	void OnCollisionWithMushroom(LPCOLLISIONEVENT e);
 	void OnCollisionWithPortal(LPCOLLISIONEVENT e);
-
+	void OnCollisionWithLeaf(LPCOLLISIONEVENT e);
 	int GetAniIdBig();
 	int GetAniIdSmall();
+	int GetAniIDTail();
 
 public:
 	CMario(float x, float y) : CGameObject(x, y)

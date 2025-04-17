@@ -1,9 +1,9 @@
 ﻿#include "Leaf.h"
 #include "Platform.h"
 
-#define LEAF_FALL_SPEED 0.0001f
+#define LEAF_FALL_SPEED 0.005f
 #define OUT_BRICK 0.13f
-#define LEAF_SPEED 0.04f
+
 
 CLeaf::CLeaf(float x, float y) : CGameObject(x, y)
 {

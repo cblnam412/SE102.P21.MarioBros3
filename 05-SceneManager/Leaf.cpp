@@ -1,51 +1,51 @@
 ﻿#include "Leaf.h"
 #include "Platform.h"
-#define LEAF_FALL_SPEED 0.0001f
-#define LEAF_SPEED 0.04f
-#define ADJUST_AX_WHEN_FALL 0.0001f
-#define ADJUST_MAX_VX 0.085f
-#define OUT_BRICK 0.13f
 
-CLeaf::CLeaf(float x, float y) :CGameObject(x, y)
+#define LEAF_FALL_SPEED 0.0001f
+#define OUT_BRICK 0.13f
+#define LEAF_SPEED 0.04f
+
+CLeaf::CLeaf(float x, float y) : CGameObject(x, y)
 {
 	this->ax = 0;
 	this->ay = LEAF_FALL_SPEED;
-	vy = -OUT_BRICK;
+	this->vx = 0; // Không lượn ngang
+	this->vy = -OUT_BRICK;
 	isOnPlatForm = false;
 	SetState(LEAF_STATE_FALL);
 }
-CLeaf::CLeaf(float x, float y, int state) {
+
+CLeaf::CLeaf(float x, float y, int state)
+{
 	this->x = x;
 	this->y = y;
 	this->ax = 0;
+	this->vx = 0;
 	this->state = state;
 }
-void CLeaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+
+void CLeaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+{
 	if (!checkObjectInCamera(this)) return;
 
 	if (isOnPlatForm) {
 		vy = 0;
 		ay = 0;
+		vx = 0;
 	}
 	else {
 		if (vy < MAX_VY) {
 			vy += ay * dt;
 		}
 		else vy = ay * dt;
-		if (vy > 0) {
-			if (vx <= ADJUST_MAX_VX) {
-				vx += ax * dt;
-			}
-			else vx = -vx;
-		}
-	}
-	//	DebugOut(L"[Vy cua la cay] %f\n", vy);
 
+		vx = 0; // Không cho di chuyển ngang
+	}
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
-
 }
+
 void CLeaf::OnNoCollision(DWORD dt)
 {
 	x += vx * dt;
@@ -82,8 +82,7 @@ void CLeaf::Render()
 	if (!checkObjectInCamera(this)) return;
 
 	CAnimations* animations = CAnimations::GetInstance();
-	if (vx <= 0) animations->Get(ID_ANI_LEAF_LEFT)->Render(x, y);
-	else if (vx > 0) animations->Get(ID_ANI_LEAF_RIGHT)->Render(x, y);
+	animations->Get(ID_ANI_LEAF_LEFT)->Render(x, y); // Dù không lượn, vẫn dùng 1 hướng
 
 	//RenderBoundingBox();
 }
@@ -101,10 +100,10 @@ void CLeaf::SetState(int state)
 	switch (state)
 	{
 	case LEAF_STATE_FALL:
-		ax += ADJUST_AX_WHEN_FALL;
+		ax = 0;
+		vx = 0;
 		break;
 	}
-
 
 	CGameObject::SetState(state);
 }

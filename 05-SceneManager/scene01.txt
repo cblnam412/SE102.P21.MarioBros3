@@ -67,5 +67,4 @@ leaf.txt
 #Mushroom
 6	250	60
 
-#Leaf
-7	100	120
+

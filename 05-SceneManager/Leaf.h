@@ -13,13 +13,13 @@
 
 class CLeaf : public CGameObject {
 protected:
-	int ay;
+	float ay;
 public:
-	CLeaf(float x, float y);
+	CLeaf(float x, float y) : CGameObject(x, y) { ay = 0.005; vx = 0.05; }
 	void Render();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 	int IsBlocking() { return 0; }
-
+	virtual void OnNoCollision(DWORD dt);
 	virtual int IsCollidable() { return 0; };
 };

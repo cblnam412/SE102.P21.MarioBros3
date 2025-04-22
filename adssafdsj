@@ -1,0 +1,241 @@
+[33mcommit 4c406a647bfd829b7fffdbb1e30cec839ad537ab[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: cblnam412 <23520979@gm.uit.edu.vn>
+Date:   Wed Apr 23 01:45:05 2025 +0700
+
+    Huỷ lbỏ lần push trước đó
+
+[33mcommit 59341433fd647873ed71a1ff83c485856161e683[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Khai Duy <Khai Duy@LAPTOP-GOJQ785S>
+Date:   Wed Apr 23 00:18:19 2025 +0700
+
+    Mario ăn lá -> mất lá biến thành Mairo big
+
+[33mcommit a830e54540a04ab7de2673bd48ea38e295814912[m
+Author: Khai Duy <Khai Duy@LAPTOP-GOJQ785S>
+Date:   Thu Apr 17 21:24:04 2025 +0700
+
+    Tăng tốc độ rơi của Leaf
+
+[33mcommit 6927438d396de97907b09f340aba210e785cc1c1[m
+Author: Khai Duy <Khai Duy@LAPTOP-GOJQ785S>
+Date:   Thu Apr 17 20:43:41 2025 +0700
+
+    sửa lỗi Leaf. chỉ cần Leaf rơi tự do không cần lượn
+
+[33mcommit 96c1b83fcdfd7a46371db5b797b6e9433116afaf[m
+Author: Khai Duy <Khai Duy@LAPTOP-GOJQ785S>
+Date:   Thu Apr 17 20:31:50 2025 +0700
+
+    Chỉnh sửa Leaf rơi lượn theo phương tung độ
+
+[33mcommit 5d7739633e8d43ef3b3677c0e4e0eb748ec7544a[m
+Merge: 7cf3bb3 6a3fcde
+Author: cblnam412 <23520979@gm.uit.edu.vn>
+Date:   Wed Apr 16 23:34:16 2025 +0700
+
+    Xoá chuyển động Leaf, chuyển Leaf sang cảnh 2
+
+[33mcommit 7cf3bb3bd9820613624ed0d7225d0f6ebf5920d3[m
+Author: cblnam412 <23520979@gm.uit.edu.vn>
+Date:   Wed Apr 16 23:32:08 2025 +0700
+
+    Xoá chuyển động của Leaf, thêm Leaf vào cảnh 2
+
+[33mcommit 6a3fcde3a4718abd7f414b314783ffff01c8420a[m
+Author: Khai Duy <Khai Duy@LAPTOP-GOJQ785S>
+Date:   Wed Apr 16 23:05:57 2025 +0700
+
+    them mario tail
+
+[33mcommit 35ac48e74871315c0b65b620d4fbd5b26fa8135c[m[33m ([m[1;31morigin/mariohoachon[m[33m)[m
+Author: cblnam412 <23520979@gm.uit.edu.vn>
+Date:   Sat Apr 12 17:50:47 2025 +0700
+
+    Fix lỗi Koopas rớt khỏi nền khi bị đập ở trạng thái rùa
+
+[33mcommit b2761e08873da570171dbba28177ee6d5f1d34d2[m
+Author: cblnam412 <23520979@gm.uit.edu.vn>
+Date:   Sat Apr 12 03:04:26 2025 +0700
+
+    Fix leaf nhưng khác texture
+
+[33mcommit 3d362c5788c26414849fa93cde8cc18f140616b5[m
+Author: Khai Duy <Khai Duy@LAPTOP-GOJQ785S>
+Date:   Fri Apr 11 22:31:16 2025 +0700
+
+    Thêm Leaf để Mario ăn vào hóa chồn
+
+[33mcommit 422681fe3ad4a6e297fae69c919d68f15688a9ba[m
+Author: cblnam412 <23520979@gm.uit.edu.vn>
+Date:   Fri Apr 11 22:22:33 2025 +0700
+
+    Thêm animations hồi sinh cho Koopas
+
+[33mcommit d148e8b84e392fa8e8ca8015233d0aadf72a2b36[m
+Author: cblnam412 <23520979@gm.uit.edu.vn>
+Date:   Thu Apr 10 09:55:45 2025 +0700
+
+    Thêm shell sau khi koopas bị đạp và shell biến thành koopas sau 5.5s
+
+[33mcommit 0460fcc907cf4c6f726467fa2d74c8d3e8155828[m
+Author: cblnam412 <23520979@gm.uit.edu.vn>
+Date:   Thu Apr 10 09:21:16 2025 +0700
+
+    Sửa tên biến Koopas từ 'die' thành 'shell'
+
+[33mcommit b33bcf0e5dee193147a2c01d432db0ea27206e82[m
+Author: cblnam412 <23520979@gm.uit.edu.vn>
+Date:   Thu Apr 10 08:30:47 2025 +0700
+
+    Thêm va chạm cho Mario - Koopas
+
+[33mcommit 966e12ceb8b092171896bfa057a128b443338bf6[m
+Author: cblnam412 <23520979@gm.uit.edu.vn>
+Date:   Thu Apr 10 08:21:00 2025 +0700
+
+    Sửa animations Koopas
+
+[33mcommit 9f05ea83e4ef22d6bf7b709b52f26699768ec2c6[m
+Author: cblnam412 <23520979@gm.uit.edu.vn>
+Date:   Tue Apr 8 13:56:00 2025 +0700
+
+    Thêm đối tượng Koopas
+
+[33mcommit 39098b4bb1a3cc715137f8292f0ef5ab1c0bacd0[m
+Author: cblnam412 <23520979@gm.uit.edu.vn>
+Date:   Tue Apr 8 13:07:30 2025 +0700
+
+    Sửa lỗi ăn mushroom thì rớt 1 ô
+
+[33mcommit 0950a6f0105f688694e0e9cbacc9a393c8158dd8[m
+Author: cblnam412 <23520979@gm.uit.edu.vn>
+Date:   Mon Apr 7 13:37:49 2025 +0700
+
+    Thêm di chuyển cho Mushroom
+
+[33mcommit f7bef1c3caa1eecb999b0684729eb07881cfdec8[m
+Merge: 4d68df2 5c48d0c
+Author: cblnam412 <23520979@gm.uit.edu.vn>
+Date:   Mon Apr 7 02:04:49 2025 +0700
+
+    Thêm đối tượng Mushroom ( nấm biến lớn )
+
+[33mcommit 5c48d0c0013500c951ca7fc39ee7cff389e7cae6[m
+Author: cblnam412 <23520979@gm.uit.edu.vn>
+Date:   Sun Apr 6 00:39:44 2025 +0700
+
+    Delete 04-Collision directory
+
+[33mcommit 911d252c230048b655edd41b0aa978014f5f52a9[m
+Author: cblnam412 <23520979@gm.uit.edu.vn>
+Date:   Sun Apr 6 00:39:36 2025 +0700
+
+    Delete 03-Keyboard-States directory
+
+[33mcommit a3196fd3eb6119e79ccab792f5f4a6a908faa1c3[m
+Author: cblnam412 <23520979@gm.uit.edu.vn>
+Date:   Sun Apr 6 00:39:16 2025 +0700
+
+    Delete 02-Sprite directory
+
+[33mcommit 2c85afcfaedfdc9150642e550b8c38f62be07676[m
+Author: cblnam412 <23520979@gm.uit.edu.vn>
+Date:   Sun Apr 6 00:39:06 2025 +0700
+
+    Delete 01-Skeleton directory
+
+[33mcommit b7d955fa82bdd63419d6730cd11006ed8958bf8d[m
+Author: cblnam412 <23520979@gm.uit.edu.vn>
+Date:   Sun Apr 6 00:38:59 2025 +0700
+
+    Delete 00-Intro directory
+
+[33mcommit 4d68df2add42778ee55e7317357d19294de99151[m
+Author: cblnam412 <23520979@gm.uit.edu.vn>
+Date:   Sun Apr 6 00:20:44 2025 +0700
+
+    first commit
+
+[33mcommit 3768278303b64ac95ef04c311b38ae16dbd06973[m
+Author: Dinh Nguyen Anh Dung <dungdna2000@gmail.com>
+Date:   Sat Jun 15 20:13:35 2024 +0700
+
+    Bring collision tweak to let Platform only collidable from top from Sample 04 to Sample 05
+
+[33mcommit 2a217176c400021caa21799e36f5d54bbebe6fe4[m
+Author: Dinh Nguyen Anh Dung <dungdna2000@gmail.com>
+Date:   Sat Jun 15 20:05:57 2024 +0700
+
+    Move BLOCK_PUSH_FACTOR fix to Sample 04
+
+[33mcommit 3c593603b2d5d42c0419ae4756853fd0881cb7ee[m
+Author: Dinh Nguyen Anh Dung <dungdna2000@gmail.com>
+Date:   Sat Jun 15 19:51:05 2024 +0700
+
+    Decrease BLOCK_PUSH_FACTOR (from 0.4f to 0.01f ) to fix issue with very low Mario GRAVITY ( less than 0.02f )
+
+[33mcommit a51d470a30619a32a597d8a6e54112ccfbf12802[m
+Author: Dinh Nguyen Anh Dung <dungdna2000@gmail.com>
+Date:   Thu May 25 17:10:53 2023 +0700
+
+    Implment single direction collision logic on Platform object (see IsDirectionColliable in CGameObject)
+
+[33mcommit 60a3914a05978a70c9236380f476bdc72f6b2c0d[m
+Author: Dinh Nguyen Anh Dung <dungdna2000@gmail.com>
+Date:   Sat Apr 1 08:44:38 2023 +0700
+
+    Delete unused file Texture.cpp (LoadTexture moved to CGame)
+
+[33mcommit d36199e329afe1255910d539b082da325b5d4d1b[m
+Author: Dinh Nguyen Anh Dung <dungdna2000@gmail.com>
+Date:   Sat Jan 28 21:24:05 2023 +0700
+
+    Fix x64 crash & upgrade to VS2022 in 04-Collision
+
+[33mcommit d8ae8fa9048d58c47202fe6f4820978d7bfbd2cf[m
+Author: Dinh Nguyen Anh Dung <dungdna2000@gmail.com>
+Date:   Sat Jan 28 21:04:38 2023 +0700
+
+    Fix x64 crash & update to VS2022 in 05-SceneManager
+
+[33mcommit c788f2f210f41538bb49e9d31c0e21e0e1b0c94a[m
+Author: Dinh Nguyen Anh Dung <dungdna2000@gmail.com>
+Date:   Sat Jan 28 21:00:30 2023 +0700
+
+    Fix x64 crash & update to VS2022 in 03-Keyboard-States
+
+[33mcommit 6149a5fd4be7761f72f17a35c9b21c0fa433f57f[m
+Author: Dinh Nguyen Anh Dung <dungdna2000@gmail.com>
+Date:   Sat Jan 28 20:53:34 2023 +0700
+
+    Fix crash x64 config & update to VS2022
+
+[33mcommit 3d24ce903c74e28a78bb4a49d7beb4576a6c32dc[m
+Author: Dinh Nguyen Anh Dung <dungdna2000@gmail.com>
+Date:   Mon Jan 23 07:32:32 2023 +0700
+
+    Fix crash in CreateDeviceAndSwapChain in x64 config in 01-Skeleton, revert code to demonstrate how to render a region within a texture
+
+[33mcommit 81c1981ddd576ce7aca071e87d8910392f4d369b[m
+Author: Dinh Nguyen Anh Dung <dungdna2000@gmail.com>
+Date:   Mon Jan 23 07:17:42 2023 +0700
+
+    Fixed crash in D3D10CreateDeviceAndSwapChain in x64 and add reference code to emurate adapters
+
+[33mcommit edfee1ad9cac96f4b74ff35d95bb010e1ec4e9ec[m
+Author: Dinh Nguyen Anh Dung <dungdna2000@gmail.com>
+Date:   Thu Feb 24 13:46:28 2022 +0700
+
+    Fix 2 type-mismatch warnings in sample 03
+
+[33mcommit 8edf4e84b8905d504e8f188544a1ce2873e7b8fb[m
+Author: Dinh Nguyen Anh Dung <dungdna2000@gmail.com>
+Date:   Thu Feb 24 09:23:17 2022 +0700
+
+    Adjust texture coordinate of question brick to remove the blur
+
+[33mcommit de9a95059c6528dcaed521acd69af80ad9a12f3b[m
+Author: Dinh Nguyen Anh Dung <dungdna2000@gmail.com>
+Date:   Thu Feb 24 08:55:26 2022 +0700
+
+    Minor update to Update function in Sample 00. Add right_edge varia

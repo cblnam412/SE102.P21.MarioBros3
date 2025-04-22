@@ -1,25 +1,34 @@
 ﻿#include "Leaf.h"
 
-CLeaf::CLeaf(float x, float y) :CGameObject(x, y)
-{
-	this->ay = -0.5;
-}
+#define LEAF_SPEED 0.00005f
+
 
 void CLeaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	vy += ay * dt;
+	vy += ay;
+	if (vy >= 0.09) {
+		ay = -ay;
+		vx = -vx;
+	}
+	else if (vy <= 0.0) {
+		ay = -ay;
+		vx = -vx;
+	}
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
+void CLeaf::OnNoCollision(DWORD dt)
+{
+	x += vx * dt;
+	y += vy * dt;
+};
 
 void CLeaf::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
 	animations->Get(ID_ANI_LEAF)->Render(x, y);
-
-	//RenderBoundingBox();
 }
 
 void CLeaf::GetBoundingBox(float& l, float& t, float& r, float& b)

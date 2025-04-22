@@ -13,7 +13,7 @@ CKoopas::CKoopas(float x, float y) :CGameObject(x, y)
 
 void CKoopas::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (state == KOOPAS_STATE_SHELL)
+	if (state == KOOPAS_STATE_SHELL || state == KOOPAS_STATE_RELIVE || state == KOOPAS_STATE_ROTATE)
 	{
 		left = x - KOOPAS_BBOX_WIDTH / 2;
 		top = y - SHELL_BBOX_HEIGHT / 2;
@@ -40,15 +40,19 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 	if (!e->obj->IsBlocking()) return;
 	if (dynamic_cast<CKoopas*>(e->obj)) return;
 
-	if (e->ny != 0)
+	if (e->obj->IsBlocking())
 	{
-		vy = 0;
-	}
-	else if (e->nx != 0)
-	{
-		vx = -vx;
+		if (e->ny != 0)
+		{
+			vy = 0;
+		}
+		else if (e->nx != 0)
+		{
+			vx = -vx;
+		}
 	}
 }
+
 
 void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -112,6 +116,9 @@ void CKoopas::Render()
 	}
 	else if (state == KOOPAS_STATE_RELIVE) {
 		aniId = ID_ANI_KOOPAS_RELIVE;
+	} 
+	else if (state == KOOPAS_STATE_ROTATE) {
+		aniId = ID_ANI_KOOPAS_ROTATE;
 	}
 
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
@@ -125,10 +132,7 @@ void CKoopas::SetState(int state)
 	{
 	case KOOPAS_STATE_SHELL:
 		shell_start = GetTickCount64();
-		y += (KOOPAS_BBOX_HEIGHT - SHELL_BBOX_HEIGHT) / 2;
 		vx = 0;
-		vy = 0;
-		ay = 0;
 		break;
 	case KOOPAS_STATE_WALKING:
 		vx = -KOOPAS_WALKING_SPEED;
@@ -138,8 +142,9 @@ void CKoopas::SetState(int state)
 	case KOOPAS_STATE_RELIVE:
 		shell_start = GetTickCount64();
 		vx = 0;
-		vy = 0;
-		ay = 0;
+		break;
+	case KOOPAS_STATE_ROTATE:
+		vx = -KOOPAS_WALKING_SPEED;
 		break;
 	}
 }

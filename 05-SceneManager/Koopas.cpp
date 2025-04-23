@@ -1,6 +1,7 @@
 ﻿#define _USE_MATH_DEFINES  
 #include <cmath>
 #include "Koopas.h"
+#include "Brick.h"
 
 
 CKoopas::CKoopas(float x, float y) :CGameObject(x, y)
@@ -50,6 +51,17 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 		{
 			vx = -vx;
 		}
+	}
+
+	if (dynamic_cast<CBrick*>(e->obj))
+		OnCollisionWithBrick(e);
+}
+
+void CKoopas::OnCollisionWithBrick(LPCOLLISIONEVENT e)
+{
+	if (state == KOOPAS_STATE_ROTATE) {
+		if (e->nx != 0)
+			e->obj->Delete();
 	}
 }
 

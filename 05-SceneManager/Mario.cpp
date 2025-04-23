@@ -70,6 +70,9 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 	{
 		koopas->SetState(KOOPAS_STATE_ROTATE);
 		vy = -MARIO_JUMP_DEFLECT_SPEED;
+		if (e->nx < 0) {
+			koopas->setVX(KOOPAS_ROTATE_SPEED);
+		}
 	}
 	else if (e->ny < 0)
 	{

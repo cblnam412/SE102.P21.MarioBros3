@@ -3,6 +3,7 @@
 
 #define KOOPAS_GRAVITY 0.002f
 #define KOOPAS_WALKING_SPEED 0.05f
+#define KOOPAS_ROTATE_SPEED 0.15f
 
 
 #define KOOPAS_BBOX_WIDTH 16
@@ -45,4 +46,5 @@ protected:
 public:
 	CKoopas(float x, float y);
 	virtual void SetState(int state);
+	void setVX(float vx);
 };

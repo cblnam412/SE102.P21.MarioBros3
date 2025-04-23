@@ -12,6 +12,10 @@ CKoopas::CKoopas(float x, float y) :CGameObject(x, y)
 	SetState(KOOPAS_STATE_WALKING);
 }
 
+void CKoopas::setVX(float vx) {
+	this->vx = vx;
+}
+
 void CKoopas::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	if (state == KOOPAS_STATE_SHELL || state == KOOPAS_STATE_RELIVE || state == KOOPAS_STATE_ROTATE)
@@ -156,7 +160,7 @@ void CKoopas::SetState(int state)
 		vx = 0;
 		break;
 	case KOOPAS_STATE_ROTATE:
-		vx = -KOOPAS_WALKING_SPEED;
+		setVX(-KOOPAS_ROTATE_SPEED);
 		break;
 	}
 }

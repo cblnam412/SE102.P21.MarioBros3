@@ -8,6 +8,7 @@ cloud.txt
 koopas.txt
 mushroom.txt
 leaf.txt
+paragoomba.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -69,3 +70,7 @@ leaf.txt
 
 #Leaf
 7	100	120
+
+#Goomba
+
+8	200	10

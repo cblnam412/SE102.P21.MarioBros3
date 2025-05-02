@@ -9,7 +9,7 @@ CKoopas::CKoopas(float x, float y) :CGameObject(x, y)
 	this->ax = 0;
 	this->ay = KOOPAS_GRAVITY;
 	shell_start = -1;
-	SetState(KOOPAS_STATE_WALKING);
+	SetState(KOOPAS_STATE_WALKING_LEFT);
 }
 
 void CKoopas::setVX(float vx) {
@@ -25,13 +25,13 @@ void CKoopas::GetBoundingBox(float& left, float& top, float& right, float& botto
 		right = left + KOOPAS_BBOX_WIDTH;
 		bottom = top + SHELL_BBOX_HEIGHT;
 	}
-	else if (state == KOOPAS_STATE_WALKING)
+	else if (state == KOOPAS_STATE_WALKING_LEFT || state == KOOPAS_STATE_WALKING_RIGHT)
 	{
 		left = x - KOOPAS_BBOX_WIDTH / 2;
 		top = y - KOOPAS_BBOX_HEIGHT / 2;
 		right = left + KOOPAS_BBOX_WIDTH;
 		bottom = top + KOOPAS_BBOX_HEIGHT;
-	}
+	} 
 }
 
 void CKoopas::OnNoCollision(DWORD dt)
@@ -53,7 +53,11 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 		}
 		else if (e->nx != 0)
 		{
-			vx = -vx;
+			if (state == KOOPAS_STATE_WALKING_LEFT)
+				SetState(KOOPAS_STATE_WALKING_RIGHT);
+			else if (state == KOOPAS_STATE_WALKING_RIGHT)
+				SetState(KOOPAS_STATE_WALKING_LEFT);
+			else vx = -vx;
 		}
 	}
 
@@ -114,7 +118,8 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		else
 		{
-			SetState(KOOPAS_STATE_WALKING);
+			y -= (KOOPAS_BBOX_HEIGHT - SHELL_BBOX_HEIGHT) / 2;
+			SetState(KOOPAS_STATE_WALKING_LEFT);
 		}
 	}
 
@@ -125,8 +130,12 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CKoopas::Render()
 {
-	int aniId = ID_ANI_KOOPAS_WALKING;
-	if (state == KOOPAS_STATE_SHELL)
+	int aniId = ID_ANI_KOOPAS_WALKING_LEFT;
+
+	if (state == KOOPAS_STATE_WALKING_RIGHT) {
+		aniId = ID_ANI_KOOPAS_WALKING_RIGHT;
+	}
+	else if (state == KOOPAS_STATE_SHELL)
 	{
 		aniId = ID_ANI_KOOPAS_SHELL;
 	}
@@ -150,10 +159,14 @@ void CKoopas::SetState(int state)
 		shell_start = GetTickCount64();
 		vx = 0;
 		break;
-	case KOOPAS_STATE_WALKING:
+	case KOOPAS_STATE_WALKING_LEFT:
 		vx = -KOOPAS_WALKING_SPEED;
-		y -= (KOOPAS_BBOX_HEIGHT - SHELL_BBOX_HEIGHT) / 2;
+		//y -= (KOOPAS_BBOX_HEIGHT - SHELL_BBOX_HEIGHT) / 2;
 		ay = KOOPAS_GRAVITY;
+		break;
+	case KOOPAS_STATE_WALKING_RIGHT:
+		vx = KOOPAS_WALKING_SPEED;
+		//y -= (KOOPAS_BBOX_HEIGHT - SHELL_BBOX_HEIGHT) / 2;
 		break;
 	case KOOPAS_STATE_RELIVE:
 		shell_start = GetTickCount64();

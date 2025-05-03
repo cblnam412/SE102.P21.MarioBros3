@@ -1,4 +1,4 @@
-#include <algorithm>
+﻿#include <algorithm>
 #include "debug.h"
 
 #include "Mario.h"
@@ -11,6 +11,7 @@
 #include "Koopas.h"
 #include "Leaf.h"
 #include "Collision.h"
+#include "PlantEnemy.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -61,6 +62,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithKoopas(e);
 	else if (dynamic_cast<CLeaf*>(e->obj))
 		OnCollisionWithLeaf(e);
+	else if (dynamic_cast<CPlantEnemy*>(e->obj))
+		OnCollisionWithPlant(e);
 	
 }
 
@@ -166,6 +169,27 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 	CGame::GetInstance()->InitiateSwitchScene(p->GetSceneId());
 }
 
+
+void CMario::OnCollisionWithPlant(LPCOLLISIONEVENT e)
+{
+	if (untouchable != 0) return;
+
+	if (level == MARIO_LEVEL_TAIL)
+	{
+		SetLevel(MARIO_LEVEL_BIG);
+		StartUntouchable();
+	}
+	else if (level == MARIO_LEVEL_BIG)
+	{
+		SetLevel(MARIO_LEVEL_SMALL);
+		StartUntouchable();
+	}
+	else // MARIO_LEVEL_SMALL
+	{
+		DebugOut(L">>> Mario DIE >>> \n");
+		SetState(MARIO_STATE_DIE);
+	}
+}
 //
 // Get animation ID for small Mario
 //

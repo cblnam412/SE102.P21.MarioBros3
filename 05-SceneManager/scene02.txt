@@ -5,10 +5,11 @@ coin.txt
 cloud.txt
 brick.txt
 leaf.txt
+plantenemy.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
-# type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas, 7 = Leaf
+# type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas, 7 = Leaf, 9 = PlantEnemy
 # See OBJECT_TYPE constants in AssetIDs.h
 
 # MARIO
@@ -35,4 +36,7 @@ leaf.txt
 50	200	160	216	180	1
 
 #Leaf
-7	200	120
+7	180	120
+
+#PlantEnemy
+9	150	145

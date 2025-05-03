@@ -148,6 +148,9 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e)
 {
 	e->obj->Delete();
+	if (level < MARIO_LEVEL_BIG) {
+		SetLevel(MARIO_LEVEL_BIG);
+	}
 }
 
 void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e) {

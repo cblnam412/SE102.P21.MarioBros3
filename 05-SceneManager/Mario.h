@@ -123,6 +123,7 @@ class CMario : public CGameObject
 	void OnCollisionWithLeaf(LPCOLLISIONEVENT e);
 	int GetAniIdBig();
 	int GetAniIdSmall();
+	
 
 public:
 	CMario(float x, float y) : CGameObject(x, y)

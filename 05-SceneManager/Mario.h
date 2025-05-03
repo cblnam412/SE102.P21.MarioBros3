@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "GameObject.h"
 
 #include "Animation.h"
@@ -121,6 +121,10 @@
 #define MARIO_SMALL_BBOX_WIDTH  13
 #define MARIO_SMALL_BBOX_HEIGHT 12
 
+#define MARIO_TAIL_BBOX_WIDTH  16
+#define MARIO_TAIL_BBOX_HEIGHT 27 // nhỏ hơn Big để tránh đuôi chạm đất
+#define MARIO_TAIL_SITTING_BBOX_WIDTH  16
+#define MARIO_TAIL_SITTING_BBOX_HEIGHT 19
 
 #define MARIO_UNTOUCHABLE_TIME 2500
 

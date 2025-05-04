@@ -13,7 +13,7 @@
 #include "Leaf.h"
 #include "PlantEnemy.h"
 #include "SampleKeyEventHandler.h"
-
+#include "Bullet.h"
 using namespace std;
 
 CPlayScene::CPlayScene(int id, LPCWSTR filePath):
@@ -125,6 +125,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_KOOPAS: obj = new CKoopas(x, y); break;
 	case OBJECT_TYPE_LEAF: obj = new CLeaf(x, y); break;
 	case OBJECT_TYPE_PLANT: obj = new CPlantEnemy(x, y); break;
+	case OBJECT_TYPE_BULLET:
+	{
+		obj = new CBullet(x, y, -0.05f, 0); 
+	}
+	break;
 	case OBJECT_TYPE_PLATFORM:
 	{
 

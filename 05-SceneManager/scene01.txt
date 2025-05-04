@@ -77,5 +77,5 @@ plantenemy.txt
 8	200	10
 
 #PlantEnemy
-9	130	162
+9	180	162
 

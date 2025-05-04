@@ -12,6 +12,7 @@
 #include "Leaf.h"
 #include "Collision.h"
 #include "PlantEnemy.h"
+#include "Bullet.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -64,7 +65,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithLeaf(e);
 	else if (dynamic_cast<CPlantEnemy*>(e->obj))
 		OnCollisionWithPlant(e);
-	
+	else if (dynamic_cast<CBullet*>(e->obj))
+		OnCollisionWithBullet(e);
 }
 
 void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
@@ -190,6 +192,30 @@ void CMario::OnCollisionWithPlant(LPCOLLISIONEVENT e)
 		SetState(MARIO_STATE_DIE);
 	}
 }
+
+
+void CMario::OnCollisionWithBullet(LPCOLLISIONEVENT e)
+{
+	if (untouchable)
+	{
+		return;
+	}
+	if (level == MARIO_LEVEL_TAIL)
+	{
+		SetLevel(MARIO_LEVEL_BIG);
+		StartUntouchable();
+	}
+	else if (level == MARIO_LEVEL_BIG)
+	{
+		SetLevel(MARIO_LEVEL_SMALL);
+		StartUntouchable();
+	}
+	else
+	{
+		SetState(MARIO_STATE_DIE);
+	}
+}
+
 //
 // Get animation ID for small Mario
 //

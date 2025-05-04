@@ -9,6 +9,8 @@ koopas.txt
 mushroom.txt
 leaf.txt
 paragoomba.txt
+bullet.txt
+plantenemy.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -73,4 +75,7 @@ paragoomba.txt
 #Goomba
 
 8	200	10
+
+#PlantEnemy
+9	130	162
 

@@ -6,6 +6,7 @@ cloud.txt
 brick.txt
 leaf.txt
 plantenemy.txt
+bullet.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -38,5 +39,3 @@ plantenemy.txt
 #Leaf
 7	150	120
 
-#PlantEnemy
-9	130	162

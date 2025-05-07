@@ -79,3 +79,5 @@ plantenemy.txt
 #PlantEnemy
 9	180	162
 
+#cloud 
+11	140	60	16	15	3	51000	52000	53000

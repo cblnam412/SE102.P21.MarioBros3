@@ -5,7 +5,7 @@
 class CCloud : public CGameObject
 {
 protected:
-    int length;				// Số lượng ô (1: mây đơn, 2: đôi, 3: ba)
+    int length;				
     float cellWidth;
     float cellHeight;
     int spriteIdBegin, spriteIdMiddle, spriteIdEnd;

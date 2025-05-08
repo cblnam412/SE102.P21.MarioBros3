@@ -5,6 +5,7 @@ coin.txt
 cloud.txt
 brick.txt
 brickquestion.txt
+paragoomba.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -47,3 +48,4 @@ brickquestion.txt
 #BrickQuestion
 12	250	100
 12	265	100
+

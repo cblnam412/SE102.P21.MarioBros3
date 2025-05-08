@@ -13,6 +13,7 @@
 #include "Collision.h"
 #include "PlantEnemy.h"
 #include "Bullet.h"
+#include "Paragoomba.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -67,6 +68,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPlant(e);
 	else if (dynamic_cast<CBullet*>(e->obj))
 		OnCollisionWithBullet(e);
+	else if (dynamic_cast<CParagoomba*>(e->obj))
+		OnCollisionWithParagoomba(e);
 }
 
 void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
@@ -215,6 +218,39 @@ void CMario::OnCollisionWithBullet(LPCOLLISIONEVENT e)
 		SetState(MARIO_STATE_DIE);
 	}
 }
+
+
+void CMario::OnCollisionWithParagoomba(LPCOLLISIONEVENT e)
+{
+	CParagoomba* paragoomba = dynamic_cast<CParagoomba*>(e->obj);
+
+	if (!paragoomba || paragoomba->GetState() == PARAGOOMBA_STATE_DIE) return;
+
+	// Mario nhảy từ trên xuống đầu Paragoomba
+	if (e->ny < 0)
+	{
+		paragoomba->SetState(PARAGOOMBA_STATE_DIE);
+		vy = -MARIO_JUMP_DEFLECT_SPEED;
+	}
+	else // Mario bị đụng ngang bởi Paragoomba
+	{
+		if (untouchable == 0)
+		{
+			if (level > MARIO_LEVEL_SMALL)
+			{
+				level = MARIO_LEVEL_SMALL;
+				StartUntouchable();
+			}
+			else
+			{
+				DebugOut(L">>> Mario DIE by Paragoomba >>> \n");
+				SetState(MARIO_STATE_DIE);
+			}
+		}
+	}
+}
+
+
 
 //
 // Get animation ID for small Mario

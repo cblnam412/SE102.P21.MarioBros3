@@ -167,6 +167,7 @@ public:
 		untouchable_start = -1;
 		isOnPlatform = false;
 		coin = 0;
+		
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
@@ -184,6 +185,8 @@ public:
 
 	void SetLevel(int l);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
+	float GetX() { return x; }
+	float GetY() { return y; }
 
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 };

@@ -7,6 +7,7 @@ brick.txt
 leaf.txt
 plantenemy.txt
 bullet.txt
+paragoomba.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -38,4 +39,5 @@ bullet.txt
 
 #Leaf
 7	150	120
+
 

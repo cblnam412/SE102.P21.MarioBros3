@@ -1,0 +1,42 @@
+﻿#pragma once
+#include "GameObject.h"
+
+#define PARAGOOMBA_GRAVITY 0.002f
+#define PARAGOOMBA_WALKING_SPEED 0.05f
+
+#define PARAGOOMBA_BBOX_WIDTH 16
+#define PARAGOOMBA_BBOX_HEIGHT 16
+#define PARAGOOMBA_BBOX_HEIGHT_FLY 7
+
+#define PARAGOOMBA_STATE_WALKING 100
+#define PARAGOOMBA_STATE_FLY 200
+
+#define PARAGOOMBA_JUMP_VY -0.2f
+#define PARAGOOMBA_HIGH_JUMP_VY -0.4f
+#define PARAGOOMBA_JUMP_COUNT 3
+
+#define ID_ANI_PARAGOOMBA_WALKING 5002
+#define ID_ANI_PARAGOOMBA_FLY 5003
+
+class CParagoomba : public CGameObject
+{
+protected:
+    float ax;
+    float ay;
+
+    int jump_count;
+    ULONGLONG fly_start;
+
+    virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+    virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+    virtual void Render();
+
+    virtual int IsCollidable() { return 1; };
+    virtual int IsBlocking() { return 0; }
+    virtual void OnNoCollision(DWORD dt);
+    virtual void OnCollisionWith(LPCOLLISIONEVENT e);
+
+public:
+    CParagoomba(float x, float y);
+    virtual void SetState(int state);
+};

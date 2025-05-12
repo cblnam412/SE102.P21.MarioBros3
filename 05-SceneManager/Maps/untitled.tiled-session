@@ -1,0 +1,76 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "C:/Users/phuon/Downloads/1-1.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "1-1.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1408.5,
+                "y": 560.5
+            }
+        },
+        "1-4.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1408.6666666666665,
+                "y": 559.3333333333333
+            }
+        },
+        "C:/Users/phuon/Downloads/1-1.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1440.5,
+                "y": 408.5
+            }
+        },
+        "C:/Users/phuon/Downloads/mariotiles.tsx": {
+            "scaleInDock": 1
+        },
+        "Map1-1.tmx": {
+            "scale": 0.32022471910112354,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 1422.4385964912283,
+                "y": 376.29824561403507
+            }
+        },
+        "mariotiles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "C:/Users/phuon/Downloads/Content/Content",
+    "map.height": 70,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 176,
+    "openFiles": [
+        "1-4.tmx",
+        "1-1.tmx",
+        "mariotiles.tsx",
+        "C:/Users/phuon/Downloads/1-1.tmx"
+    ],
+    "project": "untitled.tiled-project",
+    "recentFiles": [
+        "1-4.tmx",
+        "1-1.tmx",
+        "mariotiles.tsx",
+        "C:/Users/phuon/Downloads/1-1.tmx",
+        "Map1-1.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}

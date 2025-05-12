@@ -24,8 +24,8 @@ void CGame::Init(HWND hWnd, HINSTANCE hInstance)
 	RECT r;
 	GetClientRect(hWnd, &r);
 
-	backBufferWidth = r.right + 1;
-	backBufferHeight = r.bottom + 1;
+	backBufferWidth = 1024;
+	backBufferHeight = 600;
 
 	DebugOut(L"[INFO] Window's client area: width= %d, height= %d\n", r.right - 1, r.bottom - 1);
 

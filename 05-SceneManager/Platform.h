@@ -12,12 +12,13 @@ protected:
 	int lengthHeight;				// Unit: cell 
 	float cellWidth;
 	float cellHeight;
+	int type;
 	vector < int > sprites;
 
 public:
 	CPlatform(float x, float y,
 		float cell_width, float cell_height, int lengthWidth, int lengthHeight,
-		vector < int > sprites) :CGameObject(x, y)
+		vector < int > sprites, int type) :CGameObject(x, y)
 	{
 		this->lengthWidth = lengthWidth;
 		this->lengthHeight = lengthHeight;
@@ -25,6 +26,7 @@ public:
 		this->cellHeight = cell_height;
 		this->sprites.clear();
 		this->sprites = sprites;
+		this->type = type;
 	}
 
 	void Render();

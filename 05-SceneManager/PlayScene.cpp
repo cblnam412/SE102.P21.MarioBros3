@@ -145,11 +145,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		vector < int > sprites(0);
 		for (int i = 7; i < 16; i++)
 			sprites.push_back(atoi(tokens[i].c_str()));
+		int type = atoi(tokens[16].c_str());
 
 		obj = new CPlatform(
 			x, y,
 			cell_width, cell_height, lengthWidth, lengthHeight,
-			sprites
+			sprites, type
 		);
 
 		break;

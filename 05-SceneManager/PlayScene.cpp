@@ -140,15 +140,16 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 		float cell_width = (float)atof(tokens[3].c_str());
 		float cell_height = (float)atof(tokens[4].c_str());
-		int length = atoi(tokens[5].c_str());
-		int sprite_begin = atoi(tokens[6].c_str());
-		int sprite_middle = atoi(tokens[7].c_str());
-		int sprite_end = atoi(tokens[8].c_str());
+		int lengthWidth = atoi(tokens[5].c_str());
+		int lengthHeight = atoi(tokens[6].c_str());
+		vector < int > sprites(0);
+		for (int i = 7; i < 16; i++)
+			sprites.push_back(atoi(tokens[i].c_str()));
 
 		obj = new CPlatform(
 			x, y,
-			cell_width, cell_height, length,
-			sprite_begin, sprite_middle, sprite_end
+			cell_width, cell_height, lengthWidth, lengthHeight,
+			sprites
 		);
 
 		break;

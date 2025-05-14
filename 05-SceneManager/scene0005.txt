@@ -25,6 +25,8 @@ paragoomba.txt
 #11	150	325	16	16	1	55001	55001	54001
 
 
+#Plant
+9	352	305
 
 
 #COIN
@@ -96,7 +98,7 @@ paragoomba.txt
 
 
 #paragoomba
-8	864	308
+8	864	308	
 
 #Brick
 #1	352	324
@@ -105,8 +107,6 @@ paragoomba.txt
 # MARIO
 0	120	170
 
-#Plant
-#9	352	324
 
 #CLoud
 11	150	200	16	15	2	51000	52000	53000

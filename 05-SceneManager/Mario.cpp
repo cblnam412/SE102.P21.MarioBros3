@@ -598,3 +598,10 @@ void CMario::SetLevel(int l)
 	level = l;
 }
 
+
+void CMario::GetPosition(float& x, float& y)
+{
+	x = this->x;
+	y = this->y;
+}
+

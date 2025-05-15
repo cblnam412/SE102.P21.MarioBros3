@@ -1,39 +1,48 @@
-#pragma once
+﻿#pragma once
 #include "GameObject.h"
 
 #define KOOPAS_GRAVITY 0.002f
-#define KOOPAS_WALKING_SPEED 0.05f
+#define KOOPAS_WALKING_SPEED 0.03f
 #define KOOPAS_ROTATE_SPEED 0.15f
-
 
 #define KOOPAS_BBOX_WIDTH 16
 #define KOOPAS_BBOX_HEIGHT 28
-
 #define SHELL_BBOX_HEIGHT 16
 
 #define KOOPAS_SHELL_TIMEOUT 4500
 
-#define KOOPAS_STATE_WALKING_LEFT 100
-#define KOOPAS_STATE_WALKING_RIGHT 101
-#define KOOPAS_STATE_SHELL 200
-#define KOOPAS_STATE_RELIVE 300
-#define KOOPAS_STATE_ROTATE 400
+#define KOOPAS_STATE_WALKING_LEFT 0
+#define KOOPAS_STATE_WALKING_RIGHT 1
+#define KOOPAS_STATE_SHELL 2
+#define KOOPAS_STATE_RELIVE 3
+#define KOOPAS_STATE_ROTATE 4
 
-#define ID_ANI_KOOPAS_WALKING_LEFT 7000
-#define ID_ANI_KOOPAS_WALKING_RIGHT 7001
-#define ID_ANI_KOOPAS_SHELL 7002
-#define ID_ANI_KOOPAS_RELIVE 7003
-#define ID_ANI_KOOPAS_ROTATE 7004
+#define ID_ANI_RED_WALKING_LEFT 7000
+#define ID_ANI_RED_WALKING_RIGHT 7001
+#define ID_ANI_RED_SHELL 7002
+#define ID_ANI_RED_RELIVE 7003
+#define ID_ANI_RED_ROTATE 7004
+
+#define ID_ANI_GREEN_WALKING_LEFT	7100
+#define ID_ANI_GREEN_WALKING_RIGHT	7101
+#define ID_ANI_GREEN_SHELL	7102
+#define ID_ANI_GREEN_RELIVE	7103
+#define ID_ANI_GREEN_ROTATE	7104
 
 class CKoopas : public CGameObject
 {
 protected:
 	float ax;
 	float ay;
-
+	int type;
 	ULONGLONG shell_start;
 
 	void OnCollisionWithBrick(LPCOLLISIONEVENT e);
+
+public:
+	CKoopas(float x, float y, int type);
+
+	void setVX(float vx);
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -42,11 +51,10 @@ protected:
 	virtual int IsCollidable() { return 1; };
 	virtual int IsBlocking() { return 0; }
 	virtual void OnNoCollision(DWORD dt);
-
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
-
-public:
-	CKoopas(float x, float y);
 	virtual void SetState(int state);
-	void setVX(float vx);
+
+	int getAni() {
+		return	7000 + type + state;
+	}
 };

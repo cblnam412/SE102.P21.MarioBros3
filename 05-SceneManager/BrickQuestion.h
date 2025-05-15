@@ -35,4 +35,6 @@ public:
 	}
 
 	void sMushroom();
+	void sCoin();
+	void sLeaf();
 };

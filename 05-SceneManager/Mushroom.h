@@ -26,7 +26,6 @@ public:
 	void Render();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
-
 	virtual int IsCollidable() { return 1; };
 	void OnCollisionWith(LPCOLLISIONEVENT e);
 	int IsBlocking() { return 0; }

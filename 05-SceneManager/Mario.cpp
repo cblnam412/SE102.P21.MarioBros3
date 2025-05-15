@@ -178,11 +178,18 @@ void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
 
 	CBrickQuestion* brickquestion = dynamic_cast<CBrickQuestion*>(e->obj);
 	
-	if (brickquestion->getnOBbj() > 0) {
+	if (e -> ny > 0 && brickquestion->getnOBbj() > 0) {
 		brickquestion->decnObj();
 
-		brickquestion->sMushroom();
-		e->obj->Delete();
+		if (brickquestion->getType() == 1)
+		{
+			if (level < MARIO_LEVEL_BIG)
+				brickquestion->sMushroom();
+			else brickquestion->sLeaf();
+		}
+		else if (brickquestion->getType() == 0) {
+			brickquestion->sCoin();
+		}
 	}
 }
 
@@ -474,7 +481,7 @@ void CMario::Render()
 		aniId = GetAniIdTail();
 
 	animations->Get(aniId)->Render(x, y);
-
+	
 	//RenderBoundingBox();
 	
 	DebugOutTitle(L"Coins: %d", coin);

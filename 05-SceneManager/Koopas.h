@@ -54,6 +54,8 @@ public:
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 	virtual void SetState(int state);
 
+	bool checkReturn(LPCOLLISIONEVENT e);
+
 	int getAni() {
 		return	7000 + type + state;
 	}

@@ -48,6 +48,14 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 
 	if (e->obj->IsBlocking())
 	{
+		if (type == 0 && (state == KOOPAS_STATE_WALKING_LEFT || state == KOOPAS_STATE_WALKING_RIGHT)) {
+			if (checkReturn(e)) {
+				if (state == KOOPAS_STATE_WALKING_LEFT)
+					SetState(KOOPAS_STATE_WALKING_RIGHT);
+				else SetState(KOOPAS_STATE_WALKING_LEFT);
+			}
+		}
+		
 		if (e->ny != 0)
 		{
 			vy = 0;
@@ -78,6 +86,8 @@ void CKoopas::OnCollisionWithBrick(LPCOLLISIONEVENT e)
 
 void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+
+
 	vy += ay * dt;
 	vx += ax * dt;
 
@@ -163,4 +173,21 @@ void CKoopas::SetState(int state)
 		setVX(-KOOPAS_ROTATE_SPEED);
 		break;
 	}
+}
+
+bool CKoopas::checkReturn(LPCOLLISIONEVENT e) {
+	
+
+	float checkX = x - KOOPAS_BBOX_WIDTH / 2 + vx * 0.01f;
+	float checkR = checkX + KOOPAS_BBOX_WIDTH;
+	
+	float l, t, r, b;
+	e->obj->GetBoundingBox(l, t, r, b);
+
+	if (l > checkX && state == KOOPAS_STATE_WALKING_LEFT)
+		return true;
+	else if (checkR > r && state == KOOPAS_STATE_WALKING_RIGHT)
+		return true;
+
+	return false;
 }

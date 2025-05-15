@@ -3,13 +3,24 @@
 #include "Koopas.h"
 #include "Brick.h"
 
-
-CKoopas::CKoopas(float x, float y) :CGameObject(x, y)
+CKoopas::CKoopas(float x, float y) : CGameObject(x, y)
 {
 	this->ax = 0;
 	this->ay = KOOPAS_GRAVITY;
 	shell_start = -1;
 	SetState(KOOPAS_STATE_WALKING_LEFT);
+}
+
+CKoopas::CKoopas(float x, float y, float minX, float maxX) : CGameObject(x, y)
+{
+	this->ax = 0;
+	this->ay = KOOPAS_GRAVITY;
+	shell_start = -1;
+	SetState(KOOPAS_STATE_WALKING_LEFT);
+
+	this->minX = minX;
+	this->maxX = maxX;
+	this->hasWalkingBounds = true;
 }
 
 void CKoopas::setVX(float vx) {
@@ -31,7 +42,7 @@ void CKoopas::GetBoundingBox(float& left, float& top, float& right, float& botto
 		top = y - KOOPAS_BBOX_HEIGHT / 2;
 		right = left + KOOPAS_BBOX_WIDTH;
 		bottom = top + KOOPAS_BBOX_HEIGHT;
-	} 
+	}
 }
 
 void CKoopas::OnNoCollision(DWORD dt)
@@ -57,7 +68,8 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 				SetState(KOOPAS_STATE_WALKING_RIGHT);
 			else if (state == KOOPAS_STATE_WALKING_RIGHT)
 				SetState(KOOPAS_STATE_WALKING_LEFT);
-			else vx = -vx;
+			else
+				vx = -vx;
 		}
 	}
 
@@ -67,17 +79,31 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CKoopas::OnCollisionWithBrick(LPCOLLISIONEVENT e)
 {
-	if (state == KOOPAS_STATE_ROTATE) {
+	if (state == KOOPAS_STATE_ROTATE)
+	{
 		if (e->nx != 0)
 			e->obj->Delete();
 	}
 }
 
-
 void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vy += ay * dt;
 	vx += ax * dt;
+
+	if (hasWalkingBounds)
+	{
+		if (x <= minX)
+		{
+			x = minX;
+			SetState(KOOPAS_STATE_WALKING_RIGHT);
+		}
+		else if (x >= maxX)
+		{
+			x = maxX;
+			SetState(KOOPAS_STATE_WALKING_LEFT);
+		}
+	}
 
 	if (state == KOOPAS_STATE_SHELL)
 	{
@@ -96,10 +122,7 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			else
 			{
-				if (state == KOOPAS_STATE_SHELL)
-				{
-					SetState(KOOPAS_STATE_RELIVE);
-				}
+				SetState(KOOPAS_STATE_RELIVE);
 			}
 		}
 	}
@@ -107,7 +130,6 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (state == KOOPAS_STATE_RELIVE)
 	{
 		DWORD relive_time = GetTickCount64() - shell_start;
-
 		const DWORD shake_duration = 1000;
 
 		if (relive_time <= shake_duration)
@@ -127,24 +149,18 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
-
 void CKoopas::Render()
 {
 	int aniId = ID_ANI_KOOPAS_WALKING_LEFT;
 
-	if (state == KOOPAS_STATE_WALKING_RIGHT) {
+	if (state == KOOPAS_STATE_WALKING_RIGHT)
 		aniId = ID_ANI_KOOPAS_WALKING_RIGHT;
-	}
 	else if (state == KOOPAS_STATE_SHELL)
-	{
 		aniId = ID_ANI_KOOPAS_SHELL;
-	}
-	else if (state == KOOPAS_STATE_RELIVE) {
+	else if (state == KOOPAS_STATE_RELIVE)
 		aniId = ID_ANI_KOOPAS_RELIVE;
-	} 
-	else if (state == KOOPAS_STATE_ROTATE) {
+	else if (state == KOOPAS_STATE_ROTATE)
 		aniId = ID_ANI_KOOPAS_ROTATE;
-	}
 
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 	RenderBoundingBox();
@@ -153,25 +169,28 @@ void CKoopas::Render()
 void CKoopas::SetState(int state)
 {
 	CGameObject::SetState(state);
+
 	switch (state)
 	{
 	case KOOPAS_STATE_SHELL:
 		shell_start = GetTickCount64();
 		vx = 0;
 		break;
+
 	case KOOPAS_STATE_WALKING_LEFT:
 		vx = -KOOPAS_WALKING_SPEED;
-		//y -= (KOOPAS_BBOX_HEIGHT - SHELL_BBOX_HEIGHT) / 2;
 		ay = KOOPAS_GRAVITY;
 		break;
+
 	case KOOPAS_STATE_WALKING_RIGHT:
 		vx = KOOPAS_WALKING_SPEED;
-		//y -= (KOOPAS_BBOX_HEIGHT - SHELL_BBOX_HEIGHT) / 2;
 		break;
+
 	case KOOPAS_STATE_RELIVE:
 		shell_start = GetTickCount64();
 		vx = 0;
 		break;
+
 	case KOOPAS_STATE_ROTATE:
 		setVX(-KOOPAS_ROTATE_SPEED);
 		break;

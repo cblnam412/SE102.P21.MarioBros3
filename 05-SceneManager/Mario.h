@@ -126,6 +126,8 @@
 #define MARIO_TAIL_SITTING_BBOX_WIDTH  16
 #define MARIO_TAIL_SITTING_BBOX_HEIGHT 19
 
+
+
 #define MARIO_UNTOUCHABLE_TIME 2500
 
 class CMario : public CGameObject

@@ -14,6 +14,7 @@
 #include "PlantEnemy.h"
 #include "Bullet.h"
 #include "Paragoomba.h"
+#include "BrickQuestion.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -46,31 +47,36 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		vy = 0;
 		if (e->ny < 0) isOnPlatform = true;
 	}
-	else 
-	if (e->nx != 0 && e->obj->IsBlocking())
-	{
-		vx = 0;
-	}
+	else
+		if (e->nx != 0 && e->obj->IsBlocking())
+		{
+			vx = 0;
+		}
+		
+		if (dynamic_cast<CGoomba*>(e->obj))
+			OnCollisionWithGoomba(e);
+		else if (dynamic_cast<CCoin*>(e->obj))
+			OnCollisionWithCoin(e);
+		else if (dynamic_cast<CPortal*>(e->obj))
+			OnCollisionWithPortal(e);
+		else if (dynamic_cast<CMushroom*>(e->obj))
+			OnCollisionWithMushroom(e);
+		else if (dynamic_cast<CKoopas*>(e->obj))
+			OnCollisionWithKoopas(e);
+		else if (dynamic_cast<CLeaf*>(e->obj))
+			OnCollisionWithLeaf(e);
+		else if (dynamic_cast<CPlantEnemy*>(e->obj))
+			OnCollisionWithPlant(e);
+		else if (dynamic_cast<CBullet*>(e->obj))
+			OnCollisionWithBullet(e);
+		else if (dynamic_cast<CParagoomba*>(e->obj))
+			OnCollisionWithParagoomba(e);
+		else if (dynamic_cast<CBrickQuestion*>(e->obj))
+			OnCollisionWithBrickQuestion(e);
 
-	else if (dynamic_cast<CGoomba*>(e->obj))
-		OnCollisionWithGoomba(e);
-	else if (dynamic_cast<CCoin*>(e->obj))
-		OnCollisionWithCoin(e);
-	else if (dynamic_cast<CPortal*>(e->obj))
-		OnCollisionWithPortal(e);
-	else if (dynamic_cast<CMushroom*>(e->obj))
-		OnCollisionWithMushroom(e);
-	else if (dynamic_cast<CKoopas*>(e->obj))
-		OnCollisionWithKoopas(e);
-	else if (dynamic_cast<CLeaf*>(e->obj))
-		OnCollisionWithLeaf(e);
-	else if (dynamic_cast<CPlantEnemy*>(e->obj))
-		OnCollisionWithPlant(e);
-	else if (dynamic_cast<CBullet*>(e->obj))
-		OnCollisionWithBullet(e);
-	else if (dynamic_cast<CParagoomba*>(e->obj))
-		OnCollisionWithParagoomba(e);
+		
 }
+
 
 void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 {
@@ -165,6 +171,18 @@ void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e) {
 	e->obj->Delete();
 	if (level < MARIO_LEVEL_BIG) {
 		SetLevel(MARIO_LEVEL_BIG);
+	}
+}
+
+void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
+
+	CBrickQuestion* brickquestion = dynamic_cast<CBrickQuestion*>(e->obj);
+	
+	if (brickquestion->getnOBbj() > 0) {
+		brickquestion->decnObj();
+
+		brickquestion->sMushroom();
+		e->obj->Delete();
 	}
 }
 

@@ -10,6 +10,7 @@ plantenemy.txt
 bullet.txt
 leaf.txt
 paragoomba.txt
+mushroom.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -82,13 +83,13 @@ paragoomba.txt
 
 
 #BrickQuestion
-12	192	276
-12	208	276
-12	232	235
-12	248	235
-12	656	308
-12	704	276
-12	1424	292
+12	192	276	1	1
+12	208	276	1	1
+12	232	235	1	1
+12	248	235	1	1
+12	656	308	1	1
+12	704	276	1	1
+12	1424	292	1	1
 
 #Goomba
 2	224	324

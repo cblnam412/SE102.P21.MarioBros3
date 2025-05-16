@@ -4,6 +4,7 @@
 #include "Brick.h"
 #include "Goomba.h"
 #include <iostream>
+#include "EatEnemy.h"
 
 CKoopas::CKoopas(float x, float y, int type) : CGameObject(x, y)
 {
@@ -46,6 +47,10 @@ void CKoopas::OnNoCollision(DWORD dt)
 
 void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 {
+	if (dynamic_cast<EatEnemy*>(e->obj)) {
+		this->Delete();
+		return;
+	}
 	//if (!e->obj->IsBlocking()) return;
 	if (dynamic_cast<CKoopas*>(e->obj)) return;
 
@@ -73,7 +78,7 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 				vx = -vx;
 		}
 	}
-	
+
 	if (!killFriend)
 		return;
 	if (dynamic_cast<CBrick*>(e->obj))

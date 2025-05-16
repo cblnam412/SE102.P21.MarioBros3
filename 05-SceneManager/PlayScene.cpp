@@ -18,6 +18,7 @@
 #include "Cloud.h"
 #include "Paragoomba.h"
 #include "EatEnemy.h"
+#include "Teleport.h"
 using namespace std;
 
 CPlayScene::CPlayScene(int id, LPCWSTR filePath):
@@ -193,6 +194,14 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			x, y
 		);
 
+		break;
+	}
+	
+	case OBJECT_TYPE_TELEPORT:
+	{
+		float r = (float)atof(tokens[3].c_str());
+		float b = (float)atof(tokens[4].c_str());
+		obj = new Teleport(x, y, r, b);
 		break;
 	}
 

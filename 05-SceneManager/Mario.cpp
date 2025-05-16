@@ -16,6 +16,7 @@
 #include "Paragoomba.h"
 #include "BrickQuestion.h"
 #include "EatEnemy.h"
+#include "Teleport.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -109,7 +110,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 			OnCollisionWithParagoomba(e);
 		else if (dynamic_cast<CBrickQuestion*>(e->obj))
 			OnCollisionWithBrickQuestion(e);
-
+		else if (dynamic_cast<Teleport*>(e->obj))
+			OnCollisionWithTeleport(e);
 		
 }
 
@@ -254,6 +256,13 @@ void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
 			brickquestion->sCoin();
 		}
 	}
+}
+
+void CMario::OnCollisionWithTeleport(LPCOLLISIONEVENT e) {
+
+	Teleport* tlp = dynamic_cast<Teleport*>(e->obj);
+
+	SetPosition(tlp->getTLX(), tlp->getTLY());
 }
 
 void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)

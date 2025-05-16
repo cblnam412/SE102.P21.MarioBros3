@@ -15,6 +15,7 @@
 #include "Bullet.h"
 #include "Paragoomba.h"
 #include "BrickQuestion.h"
+#include "EatEnemy.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -72,6 +73,11 @@ void CMario::OnNoCollision(DWORD dt)
 
 void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 {
+	if (dynamic_cast<EatEnemy*>(e->obj)) {
+		this->Delete();
+		return;
+	}
+
 	if (e->ny != 0 && e->obj->IsBlocking())
 	{
 		vy = 0;
@@ -129,11 +135,16 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 	}
 	else if (e->ny < 0)
 	{
+		if (koopas->getType() == 200) {
+			koopas->setType(100);
+
+		}
+		else 
 		if (koopas->GetState() != KOOPAS_STATE_SHELL)
 		{
 			koopas->SetState(KOOPAS_STATE_SHELL);
-			vy = -MARIO_JUMP_DEFLECT_SPEED;
 		}
+		vy = -MARIO_JUMP_DEFLECT_SPEED;
 	}
 	else 
 	{

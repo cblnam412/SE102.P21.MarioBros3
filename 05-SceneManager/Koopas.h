@@ -75,4 +75,12 @@ public:
 	int getAni() {
 		return	7000 + type + state;
 	}
+	
+	int getType() {
+		return type;
+	}
+
+	void setType(int type) {
+		this->type = type;
+	}
 };

@@ -279,13 +279,26 @@ void CMario::OnCollisionWithParagoomba(LPCOLLISIONEVENT e)
 
 	if (!paragoomba || paragoomba->GetState() == PARAGOOMBA_STATE_DIE) return;
 
-	// Mario nhảy từ trên xuống đầu Paragoomba
+	
+	if (isAttacking)
+	{
+		float dx = paragoomba->GetX() - x;
+		float dy = paragoomba->GetY() - y;
+
+		if (abs(dx) <= 20 && abs(dy) <= 16)
+		{
+			paragoomba->SetState(PARAGOOMBA_STATE_DIE);
+			return;
+		}
+	}
+
+	
 	if (e->ny < 0)
 	{
 		paragoomba->SetState(PARAGOOMBA_STATE_DIE);
 		vy = -MARIO_JUMP_DEFLECT_SPEED;
 	}
-	else // Mario bị đụng ngang bởi Paragoomba
+	else
 	{
 		if (untouchable == 0)
 		{

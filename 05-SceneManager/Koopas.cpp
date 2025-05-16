@@ -59,7 +59,7 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 			}
 		}
 		
-		if (e->ny != 0)
+		if (e->ny != 0 && type != 200)
 		{
 			vy = 0;
 		}
@@ -102,6 +102,12 @@ void CKoopas::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 
+	if (type == 200) {
+		ULONGLONG now = GetTickCount64();
+		float time = (now % 2000) / 1000.0f; 
+		
+		vy = -KOOPAS_JUMP_SPEED * cos(M_PI * time);
+	}
 
 	vy += ay * dt;
 	vx += ax * dt;
@@ -172,11 +178,12 @@ void CKoopas::SetState(int state)
 		break;
 
 	case KOOPAS_STATE_WALKING_LEFT:
-		vx = -KOOPAS_WALKING_SPEED;
 		ay = KOOPAS_GRAVITY;
+		vx = -KOOPAS_WALKING_SPEED;
 		break;
 
 	case KOOPAS_STATE_WALKING_RIGHT:
+		ay = KOOPAS_GRAVITY;
 		vx = KOOPAS_WALKING_SPEED;
 		break;
 

@@ -144,7 +144,13 @@
 #define MARIO_TAIL_SITTING_BBOX_WIDTH  16
 #define MARIO_TAIL_SITTING_BBOX_HEIGHT 19
 
+
 #define MARIO_STATE_TAIL_ATTACK 700
+#define MARIO_STATE_FLYING 800
+#define MARIO_STATE_LANDING 220805
+#define MARIO_STATE_FALLING 220806
+
+
 
 
 #define MARIO_UNTOUCHABLE_TIME 2500
@@ -154,16 +160,25 @@ class CMario : public CGameObject
 	BOOLEAN isSitting;
 	BOOLEAN isAttacking;
 	BOOLEAN isHolding;
-	CKoopas* heldKoopas;
+	BOOLEAN isHoldingJump;
+	BOOLEAN isFlying;
+	BOOLEAN isLanding;
+	BOOLEAN isFalling;
 
+
+	CKoopas* heldKoopas;
 	float maxVx;
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
 
-	int level; 
-	int untouchable; 
+	int level;
+	int untouchable;
 	ULONGLONG untouchable_start;
 	ULONGLONG attack_start;
+	ULONGLONG fly_start;
+	ULONGLONG landing_start;
+	ULONGLONG falling_start;
+
 	BOOLEAN isOnPlatform;
 	int coin; 
 
@@ -188,6 +203,11 @@ public:
 		isSitting = false;
 		isAttacking = false;
 		isHolding = false;
+		isFlying = false;
+		isLanding = false;
+		isFalling = false;
+
+
 		heldKoopas = nullptr;
 
 		maxVx = 0.0f;
@@ -222,7 +242,13 @@ public:
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 	float GetX() { return x; }
 	float GetY() { return y; }
+	float GetVX() { return vx; }
+
 	int GetLevel() { return level; }
 	void GetPosition(float& x, float& y);
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+
+
+	void SetHoldingJump(bool isHolding) { isHoldingJump = isHolding; }
+	bool IsHoldingJump() const { return isHoldingJump; }
 };

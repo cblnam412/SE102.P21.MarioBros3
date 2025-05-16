@@ -33,10 +33,34 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		isAttacking = false;
 	}
+	if (isFlying && isHoldingJump)
+	{
+		ay = 0.0001f;
+		vy = -0.15f;
+	}
+	else
+	{
+		ay = MARIO_GRAVITY;
+	}
+
+	
+	if (isLanding)
+	{
+		if (GetTickCount64() - landing_start > 300)
+		{
+			isLanding = false;
+			SetState(MARIO_STATE_IDLE);
+		}
+	}
 
 	updateKoopas(isHolding);
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
+	if (isFlying && isOnPlatform)
+	{
+		isFlying = false;
+		SetState(MARIO_STATE_LANDING);
+	}
 }
 
 void CMario::OnNoCollision(DWORD dt)
@@ -442,6 +466,18 @@ int CMario::GetAniIdTail()
 	{
 		aniId = (nx > 0) ? ID_ANI_MARIO_TAIL_ATTACK_RIGHT : ID_ANI_MARIO_TAIL_ATTACK_LEFT;
 	}
+	if (isFlying)
+	{
+		aniId = (nx > 0) ? ID_ANI_MARIO_TAIL_FLYING_RIGHT : ID_ANI_MARIO_TAIL_FLYING_LEFT;
+	}
+	if (isFalling)
+	{
+		aniId = (nx > 0) ? ID_ANI_MARIO_TAIL_FALLING_RIGHT : ID_ANI_MARIO_TAIL_FALLING_LEFT;
+	}
+	if (isLanding)
+	{
+		aniId = (nx > 0) ? ID_ANI_MARIO_TAIL_LANDING_RIGHT : ID_ANI_MARIO_TAIL_LANDING_LEFT;
+	}
 
 	if (aniId == -1)
 		aniId = ID_ANI_MARIO_TAIL_IDLE_RIGHT;
@@ -614,6 +650,19 @@ void CMario::SetState(int state)
 			isAttacking = true;
 			attack_start = GetTickCount64(); // Để dừng sau 300ms chẳng hạn
 		}
+		break;
+	case MARIO_STATE_FLYING:
+		if (abs(vx) == MARIO_RUNNING_SPEED && level == MARIO_LEVEL_TAIL)
+		{
+			isFlying = true;
+			fly_start = GetTickCount64();
+			vy = -0.3f;
+		}
+		break;
+	case MARIO_STATE_LANDING:
+		isLanding = true;
+		landing_start = GetTickCount64();
+		vx = 0; ax = 0;
 		break;
 	}
 

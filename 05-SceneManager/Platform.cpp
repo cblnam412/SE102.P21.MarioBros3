@@ -62,7 +62,7 @@ void CPlatform::Render()
 		for (float j = yy + cellHeight; j < yy + (lengthHeight - 1) * cellHeight; j += cellHeight)
 			s->Get(this->sprites[8])->Draw(i, j);
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CPlatform::GetBoundingBox(float& l, float& t, float& r, float& b)

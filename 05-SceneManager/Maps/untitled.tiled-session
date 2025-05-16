@@ -9,11 +9,11 @@
     ],
     "fileStates": {
         "1-1.tmx": {
-            "scale": 1,
+            "scale": 2,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1416.5,
-                "y": 553.5
+                "x": 2130.75,
+                "y": 871
             }
         },
         "1-4.tmx": {
@@ -21,7 +21,7 @@
             "selectedLayer": 0,
             "viewCenter": {
                 "x": 1408.6666666666665,
-                "y": 559.3333333333333
+                "y": 558.6666666666667
             }
         },
         "C:/Users/phuon/Downloads/1-1.tmx": {

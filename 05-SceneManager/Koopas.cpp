@@ -170,6 +170,7 @@ void CKoopas::SetState(int state)
 		break;
 
 	case KOOPAS_STATE_ROTATE:
+		ay = KOOPAS_GRAVITY;
 		setVX(-KOOPAS_ROTATE_SPEED);
 		break;
 	}

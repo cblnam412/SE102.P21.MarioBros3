@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "GameObject.h"
 
+#include "Koopas.h"
 #include "Animation.h"
 #include "Animations.h"
 
@@ -44,6 +45,9 @@
 
 #define ID_ANI_MARIO_RUNNING_RIGHT 600
 #define ID_ANI_MARIO_RUNNING_LEFT 601
+
+#define ID_ANI_MARIO_BRING_RIGHT	650
+#define ID_ANI_MARIO_BRING_LEFT	651
 
 #define ID_ANI_MARIO_JUMP_WALK_RIGHT 700
 #define ID_ANI_MARIO_JUMP_WALK_LEFT 701
@@ -133,6 +137,10 @@
 class CMario : public CGameObject
 {
 	BOOLEAN isSitting;
+
+	BOOLEAN isHolding;
+	CKoopas* heldKoopas;
+
 	float maxVx;
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
@@ -162,6 +170,10 @@ public:
 	CMario(float x, float y) : CGameObject(x, y)
 	{
 		isSitting = false;
+
+		isHolding = false;
+		heldKoopas = nullptr;
+
 		maxVx = 0.0f;
 		ax = 0.0f;
 		ay = MARIO_GRAVITY; 
@@ -186,6 +198,8 @@ public:
 
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);
+
+	void updateKoopas(BOOLEAN isHolding);
 
 	void SetLevel(int l);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }

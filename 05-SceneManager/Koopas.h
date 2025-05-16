@@ -43,6 +43,13 @@ public:
 	CKoopas(float x, float y, int type);
 
 	void setVX(float vx);
+	void setXY(float x, float y) {
+		this->x = x;
+		this->y = y;
+	}
+	void setAY(float ay) {
+		this->ay = ay;
+	}
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

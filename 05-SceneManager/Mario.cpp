@@ -30,6 +30,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable = 0;
 	}
 
+	updateKoopas(isHolding);
+
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
@@ -83,10 +85,18 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 	CKoopas* koopas = dynamic_cast<CKoopas*>(e->obj);
 	if (koopas->GetState() == KOOPAS_STATE_SHELL || koopas->GetState() == KOOPAS_STATE_RELIVE) 
 	{
-		koopas->SetState(KOOPAS_STATE_ROTATE);
-		vy = -MARIO_JUMP_DEFLECT_SPEED;
-		if (e->nx < 0) {
-			koopas->setVX(KOOPAS_ROTATE_SPEED);
+		if (state == MARIO_STATE_RUNNING_LEFT || state == MARIO_STATE_RUNNING_RIGHT) {
+			if (isHolding == false) {
+				isHolding = true;
+				heldKoopas = koopas;
+			}
+		}
+		else {
+			koopas->SetState(KOOPAS_STATE_ROTATE);
+			vy = -MARIO_JUMP_DEFLECT_SPEED;
+			if (e->nx < 0) {
+				koopas->setVX(KOOPAS_ROTATE_SPEED);
+			}
 		}
 	}
 	else if (e->ny < 0)
@@ -103,6 +113,9 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 		{
 			if (koopas->GetState() != KOOPAS_STATE_SHELL)
 			{
+				if (isHolding == true) {
+					updateKoopas(false);
+				}
 				if (level > MARIO_LEVEL_SMALL)
 				{
 					level = MARIO_LEVEL_SMALL;
@@ -630,3 +643,17 @@ void CMario::GetPosition(float& x, float& y)
 	y = this->y;
 }
 
+void CMario::updateKoopas(BOOLEAN isHolding) {
+	if (isHolding == false) {
+		this->isHolding = isHolding;
+		heldKoopas = nullptr;
+		return;
+	}
+	this->heldKoopas->setAY(0);
+
+	float tx = x + 16;
+	if (state == MARIO_STATE_RUNNING_LEFT)
+		tx = x - 16;
+
+	this->heldKoopas->setXY(tx, y);
+}

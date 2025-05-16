@@ -29,6 +29,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable_start = 0;
 		untouchable = 0;
 	}
+	if (isAttacking && GetTickCount64() - attack_start > 300)
+	{
+		isAttacking = false;
+	}
 
 	updateKoopas(isHolding);
 
@@ -136,7 +140,20 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 {
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 
-	// jump on top >> kill Goomba and deflect a bit 
+	
+	if (isAttacking && goomba->GetState() != GOOMBA_STATE_DIE)
+	{
+		float dx = goomba->GetX() - x;
+		float dy = goomba->GetY() - y;
+
+		if (abs(dx) <= 20 && abs(dy) <= 16) 
+		{
+			goomba->SetState(GOOMBA_STATE_DIE);
+			return;
+		}
+	}
+
+	
 	if (e->ny < 0)
 	{
 		if (goomba->GetState() != GOOMBA_STATE_DIE)
@@ -145,26 +162,24 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
 		}
 	}
-	else // hit by Goomba
+	else
 	{
-		if (untouchable == 0)
+		if (untouchable == 0 && goomba->GetState() != GOOMBA_STATE_DIE)
 		{
-			if (goomba->GetState() != GOOMBA_STATE_DIE)
+			if (level > MARIO_LEVEL_SMALL)
 			{
-				if (level > MARIO_LEVEL_SMALL)
-				{
-					level = MARIO_LEVEL_SMALL;
-					StartUntouchable();
-				}
-				else
-				{
-					DebugOut(L">>> Mario DIE >>> \n");
-					SetState(MARIO_STATE_DIE);
-				}
+				level = MARIO_LEVEL_SMALL;
+				StartUntouchable();
+			}
+			else
+			{
+				DebugOut(L">>> Mario DIE >>> \n");
+				SetState(MARIO_STATE_DIE);
 			}
 		}
 	}
 }
+
 
 void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
@@ -352,8 +367,6 @@ int CMario::GetAniIdSmall()
 }
 
 
-
-
 int CMario::GetAniIdTail()
 {
 	int aniId = -1;
@@ -411,11 +424,18 @@ int CMario::GetAniIdTail()
 		}
 	}
 
+	
+	if (isAttacking)
+	{
+		aniId = (nx > 0) ? ID_ANI_MARIO_TAIL_ATTACK_RIGHT : ID_ANI_MARIO_TAIL_ATTACK_LEFT;
+	}
+
 	if (aniId == -1)
 		aniId = ID_ANI_MARIO_TAIL_IDLE_RIGHT;
 
 	return aniId;
 }
+
 
 
 //
@@ -574,6 +594,13 @@ void CMario::SetState(int state)
 		vy = -MARIO_JUMP_DEFLECT_SPEED;
 		vx = 0;
 		ax = 0;
+		break;
+	case MARIO_STATE_TAIL_ATTACK:
+		if (level == MARIO_LEVEL_TAIL)
+		{
+			isAttacking = true;
+			attack_start = GetTickCount64(); // Để dừng sau 300ms chẳng hạn
+		}
 		break;
 	}
 

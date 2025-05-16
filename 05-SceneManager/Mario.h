@@ -82,27 +82,36 @@
 #define ID_ANI_MARIO_SMALL_JUMP_RUN_RIGHT 1600
 #define ID_ANI_MARIO_SMALL_JUMP_RUN_LEFT 1601
 
-#define ID_ANI_MARIO_TAIL_IDLE_LEFT 1700
-#define ID_ANI_MARIO_TAIL_IDLE_RIGHT 1701
-
-#define ID_ANI_MARIO_TAIL_WALKING_LEFT 1800
+// ----- TAIL -----
+#define ID_ANI_MARIO_TAIL_IDLE_LEFT		1700
+#define ID_ANI_MARIO_TAIL_IDLE_RIGHT	1701
+#define ID_ANI_MARIO_TAIL_WALKING_LEFT	1800
 #define ID_ANI_MARIO_TAIL_WALKING_RIGHT 1801
-
-#define ID_ANI_MARIO_TAIL_RUNNING_LEFT 1900
+#define ID_ANI_MARIO_TAIL_RUNNING_LEFT	1900
 #define ID_ANI_MARIO_TAIL_RUNNING_RIGHT 1901
-
-#define ID_ANI_MARIO_TAIL_BRACE_LEFT 2000
-#define ID_ANI_MARIO_TAIL_BRACE_RIGHT 2001
-
+#define ID_ANI_MARIO_TAIL_BRACE_LEFT	2000
+#define ID_ANI_MARIO_TAIL_BRACE_RIGHT	2001
 #define ID_ANI_MARIO_TAIL_JUMP_WALK_LEFT 2100
 #define ID_ANI_MARIO_TAIL_JUMP_WALK_RIGHT 2101
-
 #define ID_ANI_MARIO_TAIL_JUMP_RUN_LEFT 2200
 #define ID_ANI_MARIO_TAIL_JUMP_RUN_RIGHT 2201
-
-#define ID_ANI_MARIO_TAIL_SIT_LEFT 2300
-#define ID_ANI_MARIO_TAIL_SIT_RIGHT 2301
-
+#define ID_ANI_MARIO_TAIL_SIT_LEFT		2300
+#define ID_ANI_MARIO_TAIL_SIT_RIGHT		2301
+#define ID_ANI_MARIO_TAIL_KICK_LEFT		2400
+#define ID_ANI_MARIO_TAIL_KICK_RIGHT	2401
+#define ID_ANI_MARIO_TAIL_ATTACK_LEFT	2500
+#define ID_ANI_MARIO_TAIL_ATTACK_RIGHT	2501
+#define ID_ANI_MARIO_TAIL_HOLD_LEFT		2600
+#define ID_ANI_MARIO_TAIL_HOLD_RIGHT	2601
+#define ID_ANI_MARIO_TAIL_HOLD_WALK_LEFT 2602
+#define ID_ANI_MARIO_TAIL_HOLD_WALK_RIGHT 2603
+#define ID_ANI_MARIO_TAIL_FLYING_LEFT	2700
+#define ID_ANI_MARIO_TAIL_FLYING_RIGHT	2701
+#define ID_ANI_MARIO_TAIL_FALLING_LEFT	2800
+#define ID_ANI_MARIO_TAIL_FALLING_RIGHT 2801
+#define ID_ANI_MARIO_TAIL_LANDING_LEFT	2900
+#define ID_ANI_MARIO_TAIL_LANDING_RIGHT 2901
+#define ID_ANI_MARIO_TAIL_TRAVELLING	3000
 
 #pragma endregion
 
@@ -130,6 +139,7 @@
 #define MARIO_TAIL_SITTING_BBOX_WIDTH  16
 #define MARIO_TAIL_SITTING_BBOX_HEIGHT 19
 
+#define MARIO_STATE_TAIL_ATTACK 700
 
 
 #define MARIO_UNTOUCHABLE_TIME 2500
@@ -137,7 +147,7 @@
 class CMario : public CGameObject
 {
 	BOOLEAN isSitting;
-
+	BOOLEAN isAttacking;
 	BOOLEAN isHolding;
 	CKoopas* heldKoopas;
 
@@ -148,6 +158,7 @@ class CMario : public CGameObject
 	int level; 
 	int untouchable; 
 	ULONGLONG untouchable_start;
+	ULONGLONG attack_start;
 	BOOLEAN isOnPlatform;
 	int coin; 
 
@@ -170,7 +181,7 @@ public:
 	CMario(float x, float y) : CGameObject(x, y)
 	{
 		isSitting = false;
-
+		isAttacking = false;
 		isHolding = false;
 		heldKoopas = nullptr;
 
@@ -189,6 +200,7 @@ public:
 	void Render();
 	void SetState(int state);
 
+
 	int IsCollidable()
 	{ 
 		return (state != MARIO_STATE_DIE); 
@@ -205,6 +217,7 @@ public:
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 	float GetX() { return x; }
 	float GetY() { return y; }
+	int GetLevel() { return level; }
 	void GetPosition(float& x, float& y);
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 };

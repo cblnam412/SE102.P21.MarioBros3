@@ -38,4 +38,6 @@ protected:
 public: 	
 	CGoomba(float x, float y);
 	virtual void SetState(int state);
+	float GetX() { return x; }
+	float GetY() { return y; }
 };

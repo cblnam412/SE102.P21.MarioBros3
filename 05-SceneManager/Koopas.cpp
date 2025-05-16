@@ -2,6 +2,8 @@
 #include <cmath>
 #include "Koopas.h"
 #include "Brick.h"
+#include "Goomba.h"
+#include <iostream>
 
 CKoopas::CKoopas(float x, float y, int type) : CGameObject(x, y)
 {
@@ -9,6 +11,7 @@ CKoopas::CKoopas(float x, float y, int type) : CGameObject(x, y)
 	this->ax = 0;
 	this->ay = KOOPAS_GRAVITY;
 	shell_start = -1;
+	killFriend = false;
 	SetState(KOOPAS_STATE_WALKING_LEFT);
 }
 
@@ -43,7 +46,7 @@ void CKoopas::OnNoCollision(DWORD dt)
 
 void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 {
-	if (!e->obj->IsBlocking()) return;
+	//if (!e->obj->IsBlocking()) return;
 	if (dynamic_cast<CKoopas*>(e->obj)) return;
 
 	if (e->obj->IsBlocking())
@@ -70,9 +73,14 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 				vx = -vx;
 		}
 	}
-
+	
+	if (!killFriend)
+		return;
 	if (dynamic_cast<CBrick*>(e->obj))
 		OnCollisionWithBrick(e);
+	if (dynamic_cast<CGoomba*>(e->obj)) {
+		OnCollisionWithGoomba(e);
+	}
 }
 
 void CKoopas::OnCollisionWithBrick(LPCOLLISIONEVENT e)
@@ -82,6 +90,13 @@ void CKoopas::OnCollisionWithBrick(LPCOLLISIONEVENT e)
 		if (e->nx != 0)
 			e->obj->Delete();
 	}
+}
+
+void CKoopas::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
+{
+	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
+
+	goomba->setFriendKilled(true);
 }
 
 void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -94,6 +109,7 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (state == KOOPAS_STATE_SHELL)
 	{
+		killFriend = false;
 		DWORD shell_time = GetTickCount64() - shell_start;
 
 		if (shell_time > KOOPAS_SHELL_TIMEOUT)
@@ -172,6 +188,7 @@ void CKoopas::SetState(int state)
 	case KOOPAS_STATE_ROTATE:
 		ay = KOOPAS_GRAVITY;
 		setVX(-KOOPAS_ROTATE_SPEED);
+		killFriend = true;
 		break;
 	}
 }

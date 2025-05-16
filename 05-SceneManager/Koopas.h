@@ -36,8 +36,12 @@ protected:
 	float ay;
 	int type;
 	ULONGLONG shell_start;
+	bool killFriend;
 
 	void OnCollisionWithBrick(LPCOLLISIONEVENT e);
+	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
+	void OnCollisionWithKoopas(LPCOLLISIONEVENT e) {};
+	void OnCollisionWithPlant(LPCOLLISIONEVENT e) {};
 
 public:
 	CKoopas(float x, float y, int type);

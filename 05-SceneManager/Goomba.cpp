@@ -5,6 +5,7 @@ CGoomba::CGoomba(float x, float y) : CGameObject(x, y)
 	this->ax = 0;
 	this->ay = GOOMBA_GRAVITY;
 	die_start = -1;
+	Friend_killed = false;
 	SetState(GOOMBA_STATE_WALKING);
 }
 
@@ -71,7 +72,9 @@ void CGoomba::Render()
 	{
 		aniId = ID_ANI_GOOMBA_DIE;
 	}
-	CAnimations::GetInstance()->Get(aniId)->RenderFlip(x,y);
+	if (!Friend_killed)
+		CAnimations::GetInstance()->Get(aniId)->Render(x,y);
+	else CAnimations::GetInstance()->Get(aniId)->RenderFlip(x, y);
 	RenderBoundingBox();
 }
 

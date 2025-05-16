@@ -22,6 +22,7 @@ class CGoomba : public CGameObject
 protected:
 	float ax;				
 	float ay; 
+	bool Friend_killed;
 
 	ULONGLONG die_start;
 
@@ -29,7 +30,11 @@ protected:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
 	virtual void Render();
 
-	virtual int IsCollidable() { return 1; };
+	virtual int IsCollidable() { 
+		if (Friend_killed)
+			return 0;
+		return 1; 
+	};
 	virtual int IsBlocking() { return 0; }
 	virtual void OnNoCollision(DWORD dt);
 
@@ -40,4 +45,7 @@ public:
 	virtual void SetState(int state);
 	float GetX() { return x; }
 	float GetY() { return y; }
+	void setFriendKilled(bool Friend_killed) {
+		this->Friend_killed = Friend_killed;
+	}
 };

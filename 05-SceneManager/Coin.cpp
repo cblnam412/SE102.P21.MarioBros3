@@ -8,6 +8,18 @@ void CCoin::Render()
 	//RenderBoundingBox();
 }
 
+void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+	vy += 0.05f;
+	
+	y += vy * dt;
+
+	if (y > targetY)
+		this->Delete();
+
+	CGameObject::Update(dt, coObjects);
+	CCollision::GetInstance()->Process(this, dt, coObjects);
+}
+
 void CCoin::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x - COIN_BBOX_WIDTH / 2;

@@ -29,8 +29,9 @@ void CBrickQuestion::sMushroom() {
 
 void CBrickQuestion::sCoin() {
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
-	CCoin* coin = new CCoin(x, y - 16);
+	CCoin* coin = new CCoin(x, y - 18);
 	scene->AddObject(coin);
+	coin->setVY(-0.5f);
 }
 
 void CBrickQuestion::sLeaf() {

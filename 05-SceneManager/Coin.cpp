@@ -9,6 +9,8 @@ void CCoin::Render()
 }
 
 void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+	if (vy == 0)
+		return;
 	vy += 0.05f;
 	
 	y += vy * dt;

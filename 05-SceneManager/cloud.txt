@@ -87,8 +87,6 @@
 
 //HARDBLOCK
 1080000	272	176	287	191	50
-
-//BRICK
 # ani_id	sprite1_id	time1	sprite2_id	time2	...
 [ANIMATIONS]
 

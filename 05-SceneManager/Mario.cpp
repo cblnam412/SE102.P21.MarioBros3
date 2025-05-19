@@ -17,6 +17,7 @@
 #include "BrickQuestion.h"
 #include "EatEnemy.h"
 #include "Teleport.h"
+#include "Lift.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -90,29 +91,30 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 			vx = 0;
 		}
 		
-		if (dynamic_cast<CGoomba*>(e->obj))
-			OnCollisionWithGoomba(e);
-		else if (dynamic_cast<CCoin*>(e->obj))
-			OnCollisionWithCoin(e);
-		else if (dynamic_cast<CPortal*>(e->obj))
-			OnCollisionWithPortal(e);
-		else if (dynamic_cast<CMushroom*>(e->obj))
-			OnCollisionWithMushroom(e);
-		else if (dynamic_cast<CKoopas*>(e->obj))
-			OnCollisionWithKoopas(e);
-		else if (dynamic_cast<CLeaf*>(e->obj))
-			OnCollisionWithLeaf(e);
-		else if (dynamic_cast<CPlantEnemy*>(e->obj))
-			OnCollisionWithPlant(e);
-		else if (dynamic_cast<CBullet*>(e->obj))
-			OnCollisionWithBullet(e);
-		else if (dynamic_cast<CParagoomba*>(e->obj))
-			OnCollisionWithParagoomba(e);
-		else if (dynamic_cast<CBrickQuestion*>(e->obj))
-			OnCollisionWithBrickQuestion(e);
-		else if (dynamic_cast<Teleport*>(e->obj))
-			OnCollisionWithTeleport(e);
-		
+	if (dynamic_cast<CGoomba*>(e->obj))
+		OnCollisionWithGoomba(e);
+	else if (dynamic_cast<CCoin*>(e->obj))
+		OnCollisionWithCoin(e);
+	else if (dynamic_cast<CPortal*>(e->obj))
+		OnCollisionWithPortal(e);
+	else if (dynamic_cast<CMushroom*>(e->obj))
+		OnCollisionWithMushroom(e);
+	else if (dynamic_cast<CKoopas*>(e->obj))
+		OnCollisionWithKoopas(e);
+	else if (dynamic_cast<CLeaf*>(e->obj))
+		OnCollisionWithLeaf(e);
+	else if (dynamic_cast<CPlantEnemy*>(e->obj))
+		OnCollisionWithPlant(e);
+	else if (dynamic_cast<CBullet*>(e->obj))
+		OnCollisionWithBullet(e);
+	else if (dynamic_cast<CParagoomba*>(e->obj))
+		OnCollisionWithParagoomba(e);
+	else if (dynamic_cast<CBrickQuestion*>(e->obj))
+		OnCollisionWithBrickQuestion(e);
+	else if (dynamic_cast<Teleport*>(e->obj))
+		OnCollisionWithTeleport(e);
+	else if (dynamic_cast<CLift*>(e->obj))
+		OnCollisionWithLift(e);
 }
 
 
@@ -256,6 +258,13 @@ void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
 			brickquestion->sCoin();
 		}
 	}
+}
+
+
+void CMario::OnCollisionWithLift(LPCOLLISIONEVENT e) {
+
+	CLift* lift = dynamic_cast<CLift*>(e->obj);
+	lift->swapVXY();
 }
 
 void CMario::OnCollisionWithTeleport(LPCOLLISIONEVENT e) {

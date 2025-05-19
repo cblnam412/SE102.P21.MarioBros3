@@ -19,6 +19,7 @@
 #include "Paragoomba.h"
 #include "EatEnemy.h"
 #include "Teleport.h"
+#include "Lift.h"
 using namespace std;
 
 CPlayScene::CPlayScene(int id, LPCWSTR filePath):
@@ -139,6 +140,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		int type = atoi(tokens[3].c_str());
 		int nObj = atoi(tokens[4].c_str());
 		obj = new CBrickQuestion(x, y, type, nObj); 
+		break;
+	}
+	case OBJECT_TYPE_LIFT: {
+		obj = new CLift(x, y);
 		break;
 	}
 	case OBJECT_TYPE_PARAGOOMBA: obj = new CParagoomba(x, y); break;

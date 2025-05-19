@@ -194,6 +194,7 @@ class CMario : public CGameObject
 	void OnCollisionWithParagoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e);
 	void OnCollisionWithTeleport(LPCOLLISIONEVENT e);
+	void OnCollisionWithLift(LPCOLLISIONEVENT e);
 	int GetAniIdBig();
 	int GetAniIdSmall();
 	int GetAniIdTail();

@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "GameObject.h"
+#include "objKoopasReturn.h"
 
 #define KOOPAS_GRAVITY 0.002f
 #define KOOPAS_WALKING_SPEED 0.03f
@@ -42,6 +43,8 @@ protected:
 	int type;
 	ULONGLONG shell_start;
 	bool killFriend;
+
+    COKR* okr;
 
 	void OnCollisionWithBrick(LPCOLLISIONEVENT e);
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);

@@ -108,6 +108,9 @@
     <ClCompile Include="Lift.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="objKoopasReturn.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -210,6 +213,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Lift.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="objKoopasReturn.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

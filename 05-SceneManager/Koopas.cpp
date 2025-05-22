@@ -1,10 +1,12 @@
 ﻿#define _USE_MATH_DEFINES  
 #include <cmath>
+#include <string>
 #include "Koopas.h"
 #include "Brick.h"
 #include "Goomba.h"
 #include <iostream>
 #include "EatEnemy.h"
+#include "PlayScene.h"
 
 CKoopas::CKoopas(float x, float y, int type) : CGameObject(x, y)
 {
@@ -12,6 +14,14 @@ CKoopas::CKoopas(float x, float y, int type) : CGameObject(x, y)
 	this->ax = 0;
 	this->ay = KOOPAS_GRAVITY;
 	shell_start = -1;
+
+    if (type == 0) {
+        okr = new COKR(x, y);
+        CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+        scene->AddObject(okr);
+    }
+    else okr = nullptr;
+
 	killFriend = false;
 	SetState(KOOPAS_STATE_WALKING_LEFT);
 }
@@ -205,19 +215,57 @@ void CKoopas::SetState(int state)
 	}
 }
 
+int Await;
+
+#include <windows.h>
+#include <sstream>
+void DebugDM(float Await) {
+    std::ostringstream oss;
+    oss << "Await = " << Await;  
+    OutputDebugStringA(oss.str().c_str());  
+    OutputDebugStringA("\n");
+}
+
+
 bool CKoopas::checkReturn(LPCOLLISIONEVENT e) {
-	
 
 	float checkX = x - KOOPAS_BBOX_WIDTH / 2 + vx * 0.01f;
-	float checkR = checkX + KOOPAS_BBOX_WIDTH;
-	
+    float checkR = checkX + KOOPAS_BBOX_WIDTH;
+
 	float l, t, r, b;
 	e->obj->GetBoundingBox(l, t, r, b);
 
-	if (l > checkX && state == KOOPAS_STATE_WALKING_LEFT)
-		return true;
-	else if (checkR > r && state == KOOPAS_STATE_WALKING_RIGHT)
-		return true;
-
+    if (l > checkX && state == KOOPAS_STATE_WALKING_LEFT) {
+        if (Await <= 0) {
+            this->okr->setXY(x - 16 , y);
+            Await = 10;
+        }
+        else {
+            Await--;
+        }
+        float l1, t1, r1, b1;
+        this->okr->GetBoundingBox(l1, t1, r1, b1);
+        if (y - KOOPAS_BBOX_HEIGHT / 2 < t1) {
+            Await = 0;
+        }
+        return  y - KOOPAS_BBOX_HEIGHT / 2 < t1;
+    }
+    else if (checkR > r && state == KOOPAS_STATE_WALKING_RIGHT) {
+        if (Await <= 0) {
+            this->okr->setXY(x + 16, y);
+            Await = 10;
+        }
+        else {
+            Await--;
+        }
+        float l1, t1, r1, b1;
+        this->okr->GetBoundingBox(l1, t1, r1, b1);
+        //DebugDM(t1); DebugDM(y - KOOPAS_BBOX_HEIGHT / 2);
+        if (y - KOOPAS_BBOX_HEIGHT / 2 < t1) {
+            Await = 0;
+        }
+        return y - KOOPAS_BBOX_HEIGHT / 2 < t1;
+    }
+    
 	return false;
 }

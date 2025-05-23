@@ -115,6 +115,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
         OnCollisionWithTeleport(e);
     else if (dynamic_cast<CLift*>(e->obj))
         OnCollisionWithLift(e);
+    else if (dynamic_cast<CBrick*>(e->obj))
+        OnCollisionWithBrick(e);
 }
 
 
@@ -224,6 +226,17 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
     e->obj->Delete();
     coin++;
+}
+void CMario::OnCollisionWithBrick(LPCOLLISIONEVENT e)
+{
+    CBrick* brick = dynamic_cast<CBrick*>(e->obj);
+    if (!brick) return;
+
+   
+    if ((e->ny > 0 || e->nx != 0) && brick->HasSwitch())
+    {
+        brick->SetHitted(); 
+    }
 }
 
 void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e)

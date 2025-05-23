@@ -125,7 +125,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
         DebugOut(L"[INFO] Player object has been created!\n");
         break;
     case OBJECT_TYPE_GOOMBA:obj = new CGoomba(x, y); break;
-    case OBJECT_TYPE_BRICK: obj = new CBrick(x, y); break;
+    case OBJECT_TYPE_BRICK:
+    {
+        bool hasSwitch = (tokens.size() >= 4) ? atoi(tokens[3].c_str()) == 1 : false;
+        obj = new CBrick(x, y, hasSwitch);
+        break;
+    }
     case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
     case OBJECT_TYPE_MUSHROOM: obj = new CMushroom(x, y); break;
     case OBJECT_TYPE_KOOPAS:
@@ -135,7 +140,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
         break;
     }
     case OBJECT_TYPE_LEAF: obj = new CLeaf(x, y); break;
-    case OBJECT_TYPE_PLANT:
+    case OBJECT_TYPE_PLANT: 
     {
         int type = atoi(tokens[3].c_str()); 
         obj = new CPlantEnemy(x, y, type);

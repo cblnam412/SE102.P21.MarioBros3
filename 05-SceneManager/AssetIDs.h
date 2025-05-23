@@ -10,6 +10,7 @@
 #define ID_TEX_ENEMY2 30
 #define ID_TEX_ENEMY3 40
 #define ID_TEX_TILES	50
+#define ID_TEX_MISC2 60
 
 
 #define OBJECT_TYPE_MARIO	0

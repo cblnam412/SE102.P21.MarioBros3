@@ -15,45 +15,39 @@ void CPlantEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
         UpdateGreenCarniFlower();
     else if (type == PLANT_TYPE_SHOOTING_GREEN)
         UpdateShootinFlower();
-
+   
     CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
 void CPlantEnemy::UpdateShootinFlower()
 {
-    if (state == PLANT_STATE_REST && GetTickCount64() - rest_start > PLANT_REST_TIME)
+    ULONGLONG now = GetTickCount64();
+
+    if (state == PLANT_STATE_IN_TUBE)
     {
-        enableToShoot = true;
-        rest_start = 0;
+        if (now - rest_start > PLANT_REST_TIME)
+        {
+            SetState(PLANT_STATE_RISE_UP);
+        }
+        return;
     }
 
-   
-    if (state == PLANT_STATE_REST && enableToShoot)
+    if (state == PLANT_STATE_RISE_UP && y <= minY)
     {
-        SetState(PLANT_STATE_RISE_UP);
-        
+        y = minY;
+        SetState(PLANT_STATE_ATTACK);
     }
-
-    if (state == PLANT_STATE_ATTACK)
+    else if (state == PLANT_STATE_ATTACK)
+    {
         AimAndShoot();
-
-    if (y <= minY && state == PLANT_STATE_RISE_UP)
-    {
-        this->SetState(PLANT_STATE_ATTACK);
-        this->y = minY;
-       
     }
-
-    if (y >= maxY)
+    else if (state == PLANT_STATE_DIVE && y >= maxY)
     {
-        this->SetState(PLANT_STATE_IN_TUBE);
-        this->y = maxY;
-        
+        y = maxY;
+        SetState(PLANT_STATE_IN_TUBE);
+        rest_start = GetTickCount64();
     }
 }
-
-
-
 
 void CPlantEnemy::UpdateGreenCarniFlower()
 {

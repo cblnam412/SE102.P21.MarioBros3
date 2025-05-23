@@ -13,8 +13,8 @@
 #define PLANT_TYPE_CARNIVOURING_GREEN 3
 
 #define ATTACK_RANGE 90.0f
-#define PLANT_RISE_SPEED 0.01f
-#define PLANT_GRAVITY	0.00001f
+#define PLANT_RISE_SPEED 0.015f
+#define PLANT_GRAVITY	0.0f
 
 #define PLANT_REST_TIME 1500
 #define PLANT_AIM_TIME 500
@@ -93,7 +93,7 @@ public:
             minY = y - GREEN_PLANT_HEIGHT - 10.0f;
         else
             minY = y - GREEN_PLANT_HEIGHT;
-        maxY = y + 3.0f;
+        maxY = y;
 
         aim_start = 0;
         rest_start = 0;

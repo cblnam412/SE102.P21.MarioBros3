@@ -317,6 +317,17 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithPlant(LPCOLLISIONEVENT e)
 {
+
+    if (level == MARIO_LEVEL_TAIL && isAttacking)
+         {
+        if (auto plant = dynamic_cast<CPlantEnemy*>(e->obj))
+            {
+            plant->Delete();
+            DebugOut(L"[TAIL ATTACK] PlantEnemy bị hạ gục bằng đuôi! \n");
+            return;
+            }
+        }
+
     if (untouchable != 0) return;
 
     if (level == MARIO_LEVEL_TAIL)
@@ -329,7 +340,7 @@ void CMario::OnCollisionWithPlant(LPCOLLISIONEVENT e)
         SetLevel(MARIO_LEVEL_SMALL);
         StartUntouchable();
     }
-    else // MARIO_LEVEL_SMALL
+    else 
     {
         DebugOut(L">>> Mario DIE >>> \n");
         SetState(MARIO_STATE_DIE);

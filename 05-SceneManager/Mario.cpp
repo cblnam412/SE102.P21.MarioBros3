@@ -18,6 +18,7 @@
 #include "EatEnemy.h"
 #include "Teleport.h"
 #include "Lift.h"
+#include"Brick.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -235,11 +236,31 @@ void CMario::OnCollisionWithBrick(LPCOLLISIONEVENT e)
    
     if ((e->ny > 0 || e->nx != 0) && brick->HasSwitch())
     {
-        brick->SetHitted(); 
+        brick->SetHitted();
+    }
+
+   
+    if (brick->HasSwitch() && brick->IsSwitchVisible() && !brick->IsSwitchPressed() && e->ny < 0)
+    {
+        brick->SetSwitchPressed(true); 
+
+        
+        CPlayScene* playScene = dynamic_cast<CPlayScene*>(CGame::GetInstance()->GetCurrentScene());
+        if (playScene) {
+            for (LPGAMEOBJECT obj : playScene->GetObjects())
+            {
+                CBrick* otherBrick = dynamic_cast<CBrick*>(obj);
+                if (otherBrick && otherBrick->IsAffectedBySwitch())
+                {
+                    otherBrick->SpawnCoin();
+                    otherBrick->Delete();
+                }
+            }
+        }
     }
 }
 
-void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e)
+    void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e)
 {
     e->obj->Delete();
     if (level < MARIO_LEVEL_TAIL) {

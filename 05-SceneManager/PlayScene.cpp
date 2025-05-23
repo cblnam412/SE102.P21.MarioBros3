@@ -128,7 +128,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
     case OBJECT_TYPE_BRICK:
     {
         bool hasSwitch = (tokens.size() >= 4) ? atoi(tokens[3].c_str()) == 1 : false;
-        obj = new CBrick(x, y, hasSwitch);
+        bool isAffectedBySwitch = (tokens.size() >= 5) ? atoi(tokens[4].c_str()) == 1 : false;
+
+        CBrick* brick = new CBrick(x, y, hasSwitch);
+        brick->SetAffectedBySwitch(isAffectedBySwitch); 
+        obj = brick;
         break;
     }
     case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;

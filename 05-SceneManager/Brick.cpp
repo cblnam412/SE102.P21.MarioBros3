@@ -1,6 +1,8 @@
 #include "Brick.h"
 #include "Animations.h"
 #include "Game.h"
+#include "Coin.h"
+#include "PlayScene.h"
 
 CBrick::CBrick(float x, float y, bool hasSwitch) : CGameObject(x, y)
 {
@@ -28,7 +30,10 @@ void CBrick::Render()
 
 void CBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-    
+    if (isSwitchVisible && isSwitchPressed)
+    {
+        this->Delete();
+    }
 }
 
 void CBrick::SetState(int state)
@@ -57,4 +62,12 @@ void CBrick::GetBoundingBox(float& l, float& t, float& r, float& b)
     t = y - BRICK_BBOX_HEIGHT / 2;
     r = l + BRICK_BBOX_WIDTH;
     b = t + BRICK_BBOX_HEIGHT;
+}
+
+void CBrick::SpawnCoin()
+{
+    CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+    CCoin* coin = new CCoin(x, y - 18); 
+    scene->AddObject(coin);
+    
 }

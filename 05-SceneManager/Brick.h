@@ -13,6 +13,8 @@
 #define BRICK_STATE_HITTED     1
 #define BRICK_STATE_SHOW_SWITCH 2 
 
+#define SWITCH_TIMEOUT 1000
+
 #define BRICK_WIDTH 16
 #define BRICK_BBOX_WIDTH 16
 #define BRICK_BBOX_HEIGHT 16
@@ -24,6 +26,8 @@ protected:
     bool isHitted = false;
     bool isSwitchVisible = false;
     bool isSwitchPressed = false;
+    bool isAffectedBySwitch = false;
+    ULONGLONG switch_hit_time = 0;
 
 public:
     CBrick(float x, float y, bool hasSwitch = false);
@@ -36,4 +40,9 @@ public:
     void SetSwitchPressed(bool pressed) { isSwitchPressed = pressed; }
     void SetHitted();
     bool HasSwitch() { return hasSwitch; }
+    void SpawnCoin();
+    void SetAffectedBySwitch(bool affected) { isAffectedBySwitch = affected; }
+    bool IsAffectedBySwitch() const { return isAffectedBySwitch; }
+    bool IsSwitchVisible() const { return isSwitchVisible; }
+    bool IsSwitchPressed() const { return isSwitchPressed; }
 };

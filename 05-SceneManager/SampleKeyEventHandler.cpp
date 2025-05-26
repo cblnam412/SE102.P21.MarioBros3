@@ -1,4 +1,4 @@
-#include "SampleKeyEventHandler.h"
+﻿#include "SampleKeyEventHandler.h"
 
 #include "debug.h"
 #include "Game.h"
@@ -13,9 +13,18 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 
 	switch (KeyCode)
 	{
-	case DIK_DOWN:
-		mario->SetState(MARIO_STATE_SIT);
-		break;
+    case DIK_DOWN:
+    {
+        if (mario->IsReadyToTeleport())
+        {
+            mario->StartSlideDownPipe(); 
+        }
+        else
+        {
+            mario->SetState(MARIO_STATE_SIT);
+        }
+        break;
+    }
 	case DIK_S:
 		mario->SetState(MARIO_STATE_JUMP);
 		if (mario->GetLevel() == MARIO_LEVEL_TAIL && abs(mario->GetVX()) >= MARIO_RUNNING_SPEED)

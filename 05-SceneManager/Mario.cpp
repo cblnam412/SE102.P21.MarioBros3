@@ -59,6 +59,32 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
     updateKoopas(isHolding);
 
+
+    if (isSlidingDownPipe)
+    {
+        
+        if (slideStep == 0)
+        {
+            slideStartTime = GetTickCount64();
+            slideStep = 1;
+        }
+        if (slideStep == 1)
+        {
+            y += 0.02f * dt;
+
+            if (GetTickCount64() - slideStartTime >= 2000)
+            {
+                isSlidingDownPipe = false;
+                isTravelling = false;
+                isReadyToTeleport = false;
+                slideStep = 0;
+
+                TeleportToDestination();
+            }
+        }
+        return;
+    }
+
     CCollision::GetInstance()->Process(this, dt, coObjects);
     if (isFlying && isOnPlatform)
     {
@@ -301,11 +327,13 @@ void CMario::OnCollisionWithLift(LPCOLLISIONEVENT e) {
     lift->swapVXY();
 }
 
-void CMario::OnCollisionWithTeleport(LPCOLLISIONEVENT e) {
-
-    Teleport* tlp = dynamic_cast<Teleport*>(e->obj);
-
-    SetPosition(tlp->getTLX(), tlp->getTLY());
+void CMario::OnCollisionWithTeleport(LPCOLLISIONEVENT e)
+{
+    if (e->ny < 0)
+    {
+        tlp = dynamic_cast<Teleport*>(e->obj);
+        isReadyToTeleport = true; 
+    }
 }
 
 void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
@@ -529,6 +557,8 @@ int CMario::GetAniIdTail()
         aniId = (nx > 0) ? ID_ANI_MARIO_TAIL_FALLING_RIGHT : ID_ANI_MARIO_TAIL_FALLING_LEFT;
     else if (isLanding)
         aniId = (nx > 0) ? ID_ANI_MARIO_TAIL_LANDING_RIGHT : ID_ANI_MARIO_TAIL_LANDING_LEFT;
+    else if (isTravelling)
+        aniId = ID_ANI_MARIO_TAIL_TRAVELLING;
 
     if (aniId == -1)
         aniId = ID_ANI_MARIO_TAIL_IDLE_RIGHT;
@@ -797,4 +827,26 @@ void CMario::updateKoopas(BOOLEAN isHolding) {
         tx = x - 16;
 
     this->heldKoopas->setXY(tx, y);
+}
+void CMario::TeleportToDestination()
+{
+    if (tlp != nullptr)
+    {
+        float destX = tlp->getTLX();
+        float destY = tlp->getTLY();
+
+        SetPosition(destX, destY);
+        isReadyToTeleport = false;
+        isTravelling = false;
+        tlp = nullptr;
+    }
+}
+
+void CMario::StartSlideDownPipe()
+{
+    isSlidingDownPipe = true;
+    slideStep = 0;
+    slideStartY = y;
+    slideTargetY = y - 4.0f;
+    StartTravelling();
 }

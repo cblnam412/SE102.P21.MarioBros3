@@ -4,6 +4,7 @@
 #include "Koopas.h"
 #include "Animation.h"
 #include "Animations.h"
+#include"Teleport.h"
 
 #include "debug.h"
 
@@ -164,9 +165,13 @@ class CMario : public CGameObject
 	BOOLEAN isFlying;
 	BOOLEAN isLanding;
 	BOOLEAN isFalling;
-
+    BOOLEAN isReadyToTeleport;
+    BOOLEAN isTravelling;
+    BOOLEAN isSlidingDownPipe;
 
 	CKoopas* heldKoopas;
+    Teleport* tlp;
+
 	float maxVx;
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
@@ -178,10 +183,13 @@ class CMario : public CGameObject
 	ULONGLONG fly_start;
 	ULONGLONG landing_start;
 	ULONGLONG falling_start;
+    ULONGLONG travelling_start;
+    ULONGLONG slidePause_start;
+    ULONGLONG slideStartTime;
 
 	BOOLEAN isOnPlatform;
 	int coin; 
-
+    
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithParaGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithKoopas(LPCOLLISIONEVENT e);
@@ -209,9 +217,15 @@ public:
 		isFlying = false;
 		isLanding = false;
 		isFalling = false;
+        isTravelling = false;
+
+        isReadyToTeleport = false;
+        isSlidingDownPipe = false;
+       
 
 
 		heldKoopas = nullptr;
+        tlp = nullptr;
 
 		maxVx = 0.0f;
 		ax = 0.0f;
@@ -227,7 +241,17 @@ public:
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
 	void SetState(int state);
+    void TeleportToDestination();
+    void StartSlideDownPipe();
+    float slideTargetY = 0;
 
+    float distance = abs(slideTargetY - slideStartY);
+    float slideSpeed = distance / 2000.0f;
+
+
+
+    int slideStep = 0; 
+    float slideStartY;
 
 	int IsCollidable()
 	{ 
@@ -254,4 +278,9 @@ public:
 
 	void SetHoldingJump(bool isHolding) { isHoldingJump = isHolding; }
 	bool IsHoldingJump() const { return isHoldingJump; }
+    bool IsReadyToTeleport() const { return isReadyToTeleport; }
+    void StartTravelling() {
+        isTravelling = true;
+        travelling_start = GetTickCount64();
+    }
 };

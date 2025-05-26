@@ -4,10 +4,13 @@
 
 void Teleport::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	left = x - 16 / 2;
-	top = y - 16 / 2;
-	right = left + 16;
-	bottom = top + 16;
+    const float TELEPORT_WIDTH = 25.0f;
+    const float TELEPORT_HEIGHT = 30.0f;
+
+    left = x - TELEPORT_WIDTH / 2;
+    top = y - TELEPORT_HEIGHT / 2;
+    right = left + TELEPORT_WIDTH;
+    bottom = top + TELEPORT_HEIGHT;
 }
 
 

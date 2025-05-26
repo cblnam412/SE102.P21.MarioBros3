@@ -187,6 +187,8 @@ class CMario : public CGameObject
     ULONGLONG slidePause_start;
     ULONGLONG slideStartTime;
 
+    ULONGLONG riseStartTime;
+
 	BOOLEAN isOnPlatform;
 	int coin; 
     
@@ -241,17 +243,30 @@ public:
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
 	void SetState(int state);
+
+    //Mario tuot xuong pipe
     void TeleportToDestination();
     void StartSlideDownPipe();
     float slideTargetY = 0;
-
     float distance = abs(slideTargetY - slideStartY);
     float slideSpeed = distance / 2000.0f;
 
 
-
+    //Mario trồi lên Pipe
+    void StartRiseUpPipe();
+    bool isRisingFromPipe = false;
+    bool isReadyToRise = false;
+    float riseStartY;
+    float riseTargetY;
+    int riseStep = 0;
     int slideStep = 0; 
     float slideStartY;
+    bool isSlidingWait = false;
+    bool isRisingWait = false;
+
+
+
+
 
 	int IsCollidable()
 	{ 
@@ -283,4 +298,11 @@ public:
         isTravelling = true;
         travelling_start = GetTickCount64();
     }
+
+    bool IsReadyToRise() const { return isReadyToRise; }
+    bool GetIsSlidingWait() const { return isSlidingWait; }
+    void SetSlidingWait(bool val) { isSlidingWait = val; }
+
+    bool GetIsRisingWait() const { return isRisingWait; }
+    void SetRisingWait(bool val) { isRisingWait = val; }
 };

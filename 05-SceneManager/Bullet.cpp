@@ -8,7 +8,7 @@
 void CBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
     x += vx * dt;
     y += vy * dt;
-    DebugOut(L"[BULLET] Update: x=%.2f, y=%.2f, vx=%.2f, vy=%.2f\n", x, y, vx, vy);
+    
     CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 

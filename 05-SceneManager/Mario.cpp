@@ -84,8 +84,48 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
         }
         return;
     }
+    if (isRisingFromPipe)
+    {
+        if (riseStep == 0)
+        {
+            riseStartTime = GetTickCount64();
+            riseStep = 1;
+        }
+        else if (riseStep == 1)
+        {
+            y -= 0.02f * dt;
+
+            if (GetTickCount64() - riseStartTime >= 2000)
+            {
+                isRisingFromPipe = false;
+                isTravelling = false;
+                isReadyToRise = false;
+                riseStep = 0;
+
+                TeleportToDestination(); 
+            }
+        }
+        return;
+    }
 
     CCollision::GetInstance()->Process(this, dt, coObjects);
+    if (isSlidingWait)
+{
+    if (isReadyToTeleport)
+    {
+        StartSlideDownPipe();
+    }
+    isSlidingWait = false;
+}
+
+if (isRisingWait)
+{
+    if (isReadyToRise)
+    {
+        StartRiseUpPipe();
+    }
+    isRisingWait = false;
+}
     if (isFlying && isOnPlatform)
     {
         isFlying = false;
@@ -332,7 +372,12 @@ void CMario::OnCollisionWithTeleport(LPCOLLISIONEVENT e)
     if (e->ny < 0)
     {
         tlp = dynamic_cast<Teleport*>(e->obj);
-        isReadyToTeleport = true; 
+        isReadyToTeleport = true;
+    }
+    else if (e->ny > 0) 
+    {
+        tlp = dynamic_cast<Teleport*>(e->obj);
+        isReadyToRise = true;
     }
 }
 
@@ -841,12 +886,19 @@ void CMario::TeleportToDestination()
         tlp = nullptr;
     }
 }
-
 void CMario::StartSlideDownPipe()
 {
     isSlidingDownPipe = true;
     slideStep = 0;
     slideStartY = y;
     slideTargetY = y - 4.0f;
+    StartTravelling();
+}
+void CMario::StartRiseUpPipe()
+{
+    isRisingFromPipe = true;
+    riseStep = 0;
+    riseStartY = y;
+    riseTargetY = y - 4.0f;
     StartTravelling();
 }

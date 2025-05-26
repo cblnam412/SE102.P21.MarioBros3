@@ -17,7 +17,7 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
     {
         if (mario->IsReadyToTeleport())
         {
-            mario->StartSlideDownPipe(); 
+            mario->SetSlidingWait(true); 
         }
         else
         {
@@ -25,13 +25,22 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
         }
         break;
     }
-	case DIK_S:
-		mario->SetState(MARIO_STATE_JUMP);
-		if (mario->GetLevel() == MARIO_LEVEL_TAIL && abs(mario->GetVX()) >= MARIO_RUNNING_SPEED)
-		{
-			mario->SetState(MARIO_STATE_FLYING);
-		}
-		break;
+    case DIK_S:
+    {
+        if (mario->IsReadyToRise())
+        {
+            mario->SetRisingWait(true); 
+        }
+        else
+        {
+            mario->SetState(MARIO_STATE_JUMP);
+            if (mario->GetLevel() == MARIO_LEVEL_TAIL && abs(mario->GetVX()) >= MARIO_RUNNING_SPEED)
+            {
+                mario->SetState(MARIO_STATE_FLYING);
+            }
+        }
+        break;
+    }
 	case DIK_1:
 		mario->SetLevel(MARIO_LEVEL_SMALL);
 		break;

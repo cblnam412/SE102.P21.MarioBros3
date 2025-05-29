@@ -50,6 +50,7 @@ protected:
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithKoopas(LPCOLLISIONEVENT e) {};
 	void OnCollisionWithPlant(LPCOLLISIONEVENT e) {};
+    void OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e);
 
 public:
 	CKoopas(float x, float y, int type);

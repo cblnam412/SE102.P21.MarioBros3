@@ -7,6 +7,8 @@
 #include <iostream>
 #include "EatEnemy.h"
 #include "PlayScene.h"
+#include "Mario.h"
+#include "BrickQuestion.h"
 
 CKoopas::CKoopas(float x, float y, int type) : CGameObject(x, y)
 {
@@ -93,9 +95,33 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 		return;
 	if (dynamic_cast<CBrick*>(e->obj))
 		OnCollisionWithBrick(e);
-	if (dynamic_cast<CGoomba*>(e->obj)) {
+	else if (dynamic_cast<CGoomba*>(e->obj)) {
 		OnCollisionWithGoomba(e);
-	}
+    }
+    else if (dynamic_cast<CBrickQuestion*>(e->obj)) {
+        OnCollisionWithBrickQuestion(e);
+    }
+}
+
+void CKoopas::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e)
+{
+    CBrickQuestion* brickquestion = dynamic_cast<CBrickQuestion*>(e->obj);
+    CPlayScene* current_scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+    CMario* mario = (CMario*)current_scene->GetPlayer();
+
+    brickquestion->decnObj();
+
+
+    if (brickquestion->getType() == 1)
+    {
+         if (mario->GetState() < MARIO_LEVEL_BIG)
+             brickquestion->sMushroom();
+         else brickquestion->sLeaf();
+    }
+    else if (brickquestion->getType() == 0) {
+        brickquestion->sCoin();
+    }
+    
 }
 
 void CKoopas::OnCollisionWithBrick(LPCOLLISIONEVENT e)

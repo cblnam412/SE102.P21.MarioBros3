@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "1-1.tmx",
+    "activeFile": "1-4.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -12,16 +12,16 @@
             "scale": 3,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1416.5,
-                "y": 553.5
+                "x": 2004.1666666666665,
+                "y": 706.5
             }
         },
         "1-4.tmx": {
             "scale": 1.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1408.3333333333333,
-                "y": 559.6666666666666
+                "x": 874.9999999999999,
+                "y": 822.3333333333333
             }
         },
         "C:/Users/phuon/Downloads/1-1.tmx": {
@@ -62,10 +62,10 @@
     ],
     "project": "untitled.tiled-project",
     "recentFiles": [
-        "1-1.tmx",
-        "1-4.tmx",
         "C:/Users/phuon/Downloads/1-1.tmx",
         "mariotiles.tsx",
+        "1-1.tmx",
+        "1-4.tmx",
         "Map1-1.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",

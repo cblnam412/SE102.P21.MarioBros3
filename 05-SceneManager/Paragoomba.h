@@ -10,6 +10,7 @@
 
 #define PARAGOOMBA_STATE_WALKING 100
 #define PARAGOOMBA_STATE_DIE 200
+#define PARAGOOMBA_STATE_WALK_NOFLY 300
 
 #define PARAGOOMBA_JUMP_VY -0.2f
 #define PARAGOOMBA_HIGH_JUMP_VY -0.4f
@@ -19,6 +20,7 @@
 
 #define ID_ANI_PARAGOOMBA_WALKING 5002
 #define ID_ANI_PARAGOOMBA_DIE 5004
+#define ID_ANI_PARAGOOMBA_WALK_NOFLY 5003
 
 class CParagoomba : public CGameObject
 {
@@ -28,6 +30,9 @@ protected:
 
 	int jump_count;
 	ULONGLONG die_start;
+
+    float start_walk_x = x; 
+    const float MAX_WALK_DISTANCE = 48.0f;
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

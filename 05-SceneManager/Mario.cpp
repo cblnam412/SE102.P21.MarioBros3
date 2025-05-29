@@ -466,7 +466,15 @@ void CMario::OnCollisionWithParagoomba(LPCOLLISIONEVENT e)
 
     if (e->ny < 0)
     {
-        paragoomba->SetState(PARAGOOMBA_STATE_DIE);
+        if (paragoomba->GetState() == PARAGOOMBA_STATE_WALKING)
+        {
+            paragoomba->SetState(PARAGOOMBA_STATE_WALK_NOFLY); 
+        }
+        else if (paragoomba->GetState() == PARAGOOMBA_STATE_WALK_NOFLY)
+        {
+            paragoomba->SetState(PARAGOOMBA_STATE_DIE);
+        }
+
         vy = -MARIO_JUMP_DEFLECT_SPEED;
     }
     else

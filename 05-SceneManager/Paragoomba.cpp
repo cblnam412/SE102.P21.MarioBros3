@@ -50,20 +50,20 @@ void CParagoomba::OnCollisionWith(LPCOLLISIONEVENT e)
 	{
 		vy = 0;
 
-		if (state == PARAGOOMBA_STATE_WALKING)
-		{
-			if (jump_count < PARAGOOMBA_JUMP_COUNT)
-			{
-				vy = PARAGOOMBA_JUMP_VY;
-				jump_count++;
-			}
-			else
-			{
-				vy = PARAGOOMBA_HIGH_JUMP_VY;
-				jump_count = 0;
-				vx = -vx; // Quay đầu
-			}
-		}
+        if (state == PARAGOOMBA_STATE_WALKING)
+        {
+            if (jump_count < PARAGOOMBA_JUMP_COUNT)
+            {
+                vy = PARAGOOMBA_JUMP_VY;
+                jump_count++;
+            }
+            else
+            {
+                vy = PARAGOOMBA_HIGH_JUMP_VY;
+                jump_count = 0;
+                vx = -vx; // Quay đầu
+            }
+        }
 	}
 	else if (e->nx != 0)
 	{
@@ -81,7 +81,15 @@ void CParagoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		isDeleted = true;
 		return;
 	}
-
+    if (state == PARAGOOMBA_STATE_WALK_NOFLY)
+    {
+        float distance_walked = abs(x - start_walk_x);
+        if (distance_walked >= MAX_WALK_DISTANCE)
+        {
+            vx = -vx; 
+            start_walk_x = x;  
+        }
+    }
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
@@ -91,9 +99,11 @@ void CParagoomba::Render()
 	int aniId = ID_ANI_PARAGOOMBA_WALKING;
 	if (state == PARAGOOMBA_STATE_DIE)
 		aniId = ID_ANI_PARAGOOMBA_DIE;
+    else if (state == PARAGOOMBA_STATE_WALK_NOFLY)
+        aniId = ID_ANI_PARAGOOMBA_WALK_NOFLY;
 
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CParagoomba::SetState(int state)
@@ -111,5 +121,12 @@ void CParagoomba::SetState(int state)
 		vx = -PARAGOOMBA_WALKING_SPEED;
 		ay = PARAGOOMBA_GRAVITY;
 		break;
+
+    case PARAGOOMBA_STATE_WALK_NOFLY:
+        vx = -PARAGOOMBA_WALKING_SPEED;
+        ay = PARAGOOMBA_GRAVITY;
+        jump_count = 0;
+        start_walk_x = x;
+        break;
 	}
 }

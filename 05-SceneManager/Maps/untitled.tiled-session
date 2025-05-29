@@ -3,25 +3,25 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "1-4.tmx",
+    "activeFile": "1-1.tmx",
     "expandedProjectPaths": [
         "."
     ],
     "fileStates": {
         "1-1.tmx": {
-            "scale": 3,
+            "scale": 4,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 2004.1666666666665,
-                "y": 706.5
+                "x": 109.125,
+                "y": 870.375
             }
         },
         "1-4.tmx": {
-            "scale": 1.5,
-            "selectedLayer": 0,
+            "scale": 1,
+            "selectedLayer": -1,
             "viewCenter": {
-                "x": 874.9999999999999,
-                "y": 822.3333333333333
+                "x": 435.5,
+                "y": 863.5
             }
         },
         "C:/Users/phuon/Downloads/1-1.tmx": {
@@ -48,7 +48,7 @@
             "scaleInEditor": 1
         }
     },
-    "last.imagePath": "C:/Users/phuon/Downloads/Content/Content",
+    "last.imagePath": "C:/Users/phuon/source/repos/SE102.P21.MarioBros3/05-SceneManager/textures",
     "map.height": 70,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
@@ -56,16 +56,15 @@
     "map.width": 176,
     "openFiles": [
         "1-4.tmx",
-        "1-1.tmx",
         "mariotiles.tsx",
-        "C:/Users/phuon/Downloads/1-1.tmx"
+        "1-1.tmx"
     ],
     "project": "untitled.tiled-project",
     "recentFiles": [
-        "C:/Users/phuon/Downloads/1-1.tmx",
+        "1-4.tmx",
         "mariotiles.tsx",
         "1-1.tmx",
-        "1-4.tmx",
+        "C:/Users/phuon/Downloads/1-1.tmx",
         "Map1-1.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",

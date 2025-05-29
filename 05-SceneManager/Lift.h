@@ -14,6 +14,7 @@
 
 class CLift : public CGameObject {
 protected:
+    float prevX, prevY;
 public:
 	CLift(float x, float y) : CGameObject(x, y) {
 		this->vx = -LIFT_SPEED;
@@ -28,4 +29,9 @@ public:
 		vx = 0;
 		vy = LIFT_SPEED_DROP;
 	}
+
+    void GetDisplacement(float& dx, float& dy) {
+        dx = x - prevX;
+        dy = y - prevY;
+    }
 };

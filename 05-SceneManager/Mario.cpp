@@ -57,6 +57,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
         }
     }
 
+
     updateKoopas(isHolding);
 
 
@@ -365,6 +366,17 @@ void CMario::OnCollisionWithLift(LPCOLLISIONEVENT e) {
 
     CLift* lift = dynamic_cast<CLift*>(e->obj);
     lift->swapVXY();
+
+        float dx, dy;
+        lift->GetDisplacement(dx, dy);
+
+        x += dx;
+        y += dy;
+
+        SetState(state);
+        vy = 0;
+        ay = 0;
+        isOnPlatform = true;
 }
 
 void CMario::OnCollisionWithTeleport(LPCOLLISIONEVENT e)

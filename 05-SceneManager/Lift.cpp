@@ -6,6 +6,10 @@ void CLift::Render() {
 }
 
 void CLift::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+
+    prevX = x; 
+    prevY = y;
+
 	y += vy	* dt;
 	x += vx * dt;
 

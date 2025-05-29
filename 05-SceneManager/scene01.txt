@@ -6,6 +6,7 @@ cloud.txt
 brickquestion.txt
 coin.txt
 Lift.txt
+koopas.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -171,4 +172,7 @@ Lift.txt
 22	1792	400
 
 # MARIO
-0	100	320
+0	1900	320
+
+#KOOPAS
+3	1984	308	0

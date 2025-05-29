@@ -21,4 +21,4 @@ height	240
 40	textures\enemies-3.png
 50	textures\mariotiles.png
 60	textures\misc-2.png
-
+70	textures\Demo.png

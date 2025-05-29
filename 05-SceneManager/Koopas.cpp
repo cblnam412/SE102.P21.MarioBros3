@@ -105,15 +105,18 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CKoopas::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e)
 {
+    if (state != KOOPAS_STATE_ROTATE)
+        return;
     CBrickQuestion* brickquestion = dynamic_cast<CBrickQuestion*>(e->obj);
-    CPlayScene* current_scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
-    CMario* mario = (CMario*)current_scene->GetPlayer();
+    
 
     brickquestion->decnObj();
 
 
     if (brickquestion->getType() == 1)
     {
+        CPlayScene* current_scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+        CMario* mario = (CMario*)current_scene->GetPlayer();
          if (mario->GetState() < MARIO_LEVEL_BIG)
              brickquestion->sMushroom();
          else brickquestion->sLeaf();
@@ -121,7 +124,6 @@ void CKoopas::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e)
     else if (brickquestion->getType() == 0) {
         brickquestion->sCoin();
     }
-    
 }
 
 void CKoopas::OnCollisionWithBrick(LPCOLLISIONEVENT e)

@@ -1,16 +1,18 @@
 # id	left	top	right	bottom	texture_id
 [SPRITES]
-#WALK
+#HAVEFLY
 33001	149	104	170	122	30
 33002	98	102	119	125	30
 
-#FLY
-33003	149	104	170	122	30
-33004	98	102	119	125	30
+#NOFLY
+33003	14	53	31	70	40
+33004	64	53	81	70	40
 
 #DIE
 33005	155	2355	177	2372	40
 
+
+	
 
 
 # ani_id	sprite1_id	time1	sprite2_id	time2	...

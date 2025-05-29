@@ -211,7 +211,10 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
     {
         if (koopas->getType() == 200) {
             koopas->setType(100);
-
+        }
+        else if (koopas->getType() == 210) {
+            koopas->setType(0);
+            koopas->SetState(KOOPAS_STATE_WALKING_LEFT);
         }
         else
             if (koopas->GetState() != KOOPAS_STATE_SHELL)
@@ -225,10 +228,7 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
         if (untouchable == 0)
         {
             if (koopas->GetState() != KOOPAS_STATE_SHELL)
-            {
-                if (isHolding == true) {
-                    updateKoopas(false);
-                }
+            {   
                 if (level > MARIO_LEVEL_SMALL)
                 {
                     level = MARIO_LEVEL_SMALL;

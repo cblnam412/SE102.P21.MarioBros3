@@ -35,6 +35,8 @@
 #define ID_ANI_GREEN_FLYING_LEFT	7200
 #define ID_ANI_GREEN_FLYING_RIGHT	7201
 
+#define ID_ANI_RED_FLYING_LEFT  7210
+
 class CKoopas : public CGameObject
 {
 protected:
@@ -42,6 +44,10 @@ protected:
 	float ay;
 	int type;
 	ULONGLONG shell_start;
+
+    float startY;
+    int   dirY;
+
 	bool killFriend;
 
     COKR* okr;
@@ -74,6 +80,8 @@ public:
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 	virtual void SetState(int state);
 
+    void updateRedParaKoopas(DWORD dt);
+
 	bool checkReturn(LPCOLLISIONEVENT e);
 
 	int getAni() {
@@ -84,7 +92,7 @@ public:
 		return type;
 	}
 
-	void setType(int type) {
-		this->type = type;
-	}
+    void setType(int type) {
+        this->type = type;
+    }
 };

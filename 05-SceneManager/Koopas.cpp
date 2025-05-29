@@ -17,7 +17,10 @@ CKoopas::CKoopas(float x, float y, int type) : CGameObject(x, y)
 	this->ay = KOOPAS_GRAVITY;
 	shell_start = -1;
 
-    if (type == 0) {
+    this->startY = y;
+    this->dirY = 1;
+
+    if (type == 0 || type == 210) {
         okr = new COKR(x, y);
         CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
         scene->AddObject(okr);
@@ -65,6 +68,9 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 	}
 	//if (!e->obj->IsBlocking()) return;
 	if (dynamic_cast<CKoopas*>(e->obj)) return;
+
+    if (dynamic_cast<CMario*>(e->obj))
+        return;
 
 	if (e->obj->IsBlocking())
 	{
@@ -150,7 +156,10 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		float time = (now % 2000) / 1000.0f; 
 		
 		vy = -KOOPAS_JUMP_SPEED * cos(M_PI * time);
-	}
+    }
+    else if (type == 210) {
+        updateRedParaKoopas(dt);
+    }
 
 	vy += ay * dt;
 	vx += ax * dt;
@@ -199,6 +208,23 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
+}
+
+
+void CKoopas::updateRedParaKoopas(DWORD dt) {
+    const float AMPLITUDE = 80.0f;  
+    const float SPEED = KOOPAS_FLY_SPEED / 2;
+    vy = SPEED * dirY;
+    y += vy * dt;
+    if (y >= startY + AMPLITUDE) {
+        y = startY + AMPLITUDE;
+        dirY = -1;   
+    }
+    else if (y <= startY - AMPLITUDE) {
+        y = startY - AMPLITUDE;
+        dirY = 1; 
+    }
+    vx = 0;
 }
 
 void CKoopas::Render()
@@ -288,7 +314,6 @@ bool CKoopas::checkReturn(LPCOLLISIONEVENT e) {
         }
         float l1, t1, r1, b1;
         this->okr->GetBoundingBox(l1, t1, r1, b1);
-        //DebugDM(t1); DebugDM(y - KOOPAS_BBOX_HEIGHT / 2);
         if (y - KOOPAS_BBOX_HEIGHT / 2 < t1) {
             Await = 0;
         }

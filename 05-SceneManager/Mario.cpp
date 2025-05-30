@@ -193,6 +193,9 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
     CKoopas* koopas = dynamic_cast<CKoopas*>(e->obj);
     if (koopas->GetState() == KOOPAS_STATE_SHELL || koopas->GetState() == KOOPAS_STATE_RELIVE)
     {
+        if (isHolding) {
+            return;
+        }
         if (state == MARIO_STATE_RUNNING_LEFT || state == MARIO_STATE_RUNNING_RIGHT) {
             if (isHolding == false) {
                 isHolding = true;
@@ -885,11 +888,24 @@ void CMario::updateKoopas(BOOLEAN isHolding) {
         heldKoopas = nullptr;
         return;
     }
+
+    if (heldKoopas->GetState() != KOOPAS_STATE_RELIVE && heldKoopas->GetState() != KOOPAS_STATE_SHELL) {
+        this->isHolding = false;
+        if (heldKoopas != nullptr) {
+            float hkx, hky;
+            heldKoopas->GetPosition(hkx, hky);
+            heldKoopas->setXY(hkx, hky - 16);
+            heldKoopas->SetState(KOOPAS_STATE_WALKING_LEFT);
+        }
+        heldKoopas = nullptr;
+        return;
+    }
+
     this->heldKoopas->setAY(0);
 
-    float tx = x + 16;
-    if (state == MARIO_STATE_RUNNING_LEFT)
-        tx = x - 16;
+    float tx = x + 10;
+    if (Dir())
+        tx = x - 10;
 
     this->heldKoopas->setXY(tx, y);
 }
@@ -921,4 +937,13 @@ void CMario::StartRiseUpPipe()
     riseStartY = y;
     riseTargetY = y - 4.0f;
     StartTravelling();
+}
+
+void CMario::ThrowKoopas() {
+    if (isHolding && heldKoopas != nullptr) {
+        isHolding = false;
+        heldKoopas->SetState(KOOPAS_STATE_ROTATE);
+        heldKoopas->setVX(nx > 0 ? KOOPAS_ROTATE_SPEED : -KOOPAS_ROTATE_SPEED);
+        heldKoopas = nullptr;
+    }
 }

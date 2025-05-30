@@ -265,7 +265,15 @@ public:
     bool isRisingWait = false;
 
 
+    void ThrowKoopas();
 
+    bool IsHolding() {
+        return this->isHolding;
+    }
+
+    bool Dir() {
+        return nx == -1;
+    }
 
 
 	int IsCollidable()

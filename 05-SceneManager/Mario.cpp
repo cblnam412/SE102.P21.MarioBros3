@@ -350,6 +350,7 @@ void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
     CBrickQuestion* brickquestion = dynamic_cast<CBrickQuestion*>(e->obj);
 
     if (e->ny > 0 && brickquestion->getnOBbj() > 0) {
+        brickquestion->startJump();
         brickquestion->decnObj();
 
         if (brickquestion->getType() == 1)

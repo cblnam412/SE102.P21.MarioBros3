@@ -16,6 +16,35 @@ void CBrickQuestion::Render()
 	//RenderBoundingBox();
 }
 
+void CBrickQuestion::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+
+    if (isJumping)
+    {
+        ULONGLONG now = GetTickCount64();
+        ULONGLONG elap = now - jumpStartTime;
+
+        if (elap < JUMP_DURATION){
+            y = oldY - 4.0f;
+        }
+        else if (elap < JUMP_DURATION * 2){
+            y = oldY;
+        }
+        else{
+            isJumping = false;
+        }
+    }
+    CGameObject::Update(dt, coObjects);
+    CCollision::GetInstance()->Process(this, dt, coObjects);
+}
+
+void CBrickQuestion::startJump()
+{
+    if (!isJumping) {
+        isJumping = true;
+        jumpStartTime = GetTickCount64();
+    }
+}
+
 void CBrickQuestion::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x - BRICKQUESTION_BBOX_WIDTH / 2;

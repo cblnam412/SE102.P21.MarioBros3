@@ -11,22 +11,32 @@
 #define BRICKQUESTION_BBOX_WIDTH 16
 #define BRICKQUESTION_BBOX_HEIGHT 16
 
+#define JUMP_DURATION   100
+
 class CBrickQuestion : public CGameObject {
 protected:
 	int type;
 	int nObj;
     int typebrick;
+
+    bool isJumping = false;
+    float oldY;
+    ULONGLONG jumpStartTime = 0;
 public:
 	CBrickQuestion(float x, float y, int type, int nObj, int typebrick) : CGameObject(x, y) {
 		this->type = type;
 		this->nObj = nObj;
         this->typebrick = typebrick;
+        this->oldY = y;
 	}
 
 
 	void Render();
-	void Update(DWORD dt) {}
+    void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
+
+    void startJump();
+
 	int getType() {
 		return this->type;
 	}

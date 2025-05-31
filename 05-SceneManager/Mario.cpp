@@ -950,7 +950,10 @@ void CMario::ThrowKoopas() {
     if (isHolding && heldKoopas != nullptr) {
         isHolding = false;
         heldKoopas->SetState(KOOPAS_STATE_ROTATE);
+        float hkx, hky;
+        heldKoopas->GetPosition(hkx, hky);
         heldKoopas->setVX(nx > 0 ? KOOPAS_ROTATE_SPEED : -KOOPAS_ROTATE_SPEED);
+        heldKoopas->setXY(hkx, hky - 8);
         heldKoopas = nullptr;
     }
 }

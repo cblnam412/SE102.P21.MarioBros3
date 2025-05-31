@@ -366,20 +366,25 @@ void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
 
 
 void CMario::OnCollisionWithLift(LPCOLLISIONEVENT e) {
-
     CLift* lift = dynamic_cast<CLift*>(e->obj);
-    lift->swapVXY();
 
-        float dx, dy;
-        lift->GetDisplacement(dx, dy);
+    if (lift->GetVy() == 0) {
+        lift->swapVXY();
+    }
 
-        x += dx;
-        y += dy;
+    float dx, dy;
+    lift->GetDisplacement(dx, dy);
 
-        SetState(state);
-        vy = 0;
-        ay = 0;
-        isOnPlatform = true;
+    x += dx;
+    y += dy;
+
+    vy = lift->GetVy();
+    ay = MARIO_GRAVITY;
+    isOnPlatform = true;
+
+    if (abs(vx) < 0.01f) {
+        SetState(MARIO_STATE_IDLE);
+    }
 }
 
 void CMario::OnCollisionWithTeleport(LPCOLLISIONEVENT e)
@@ -654,8 +659,9 @@ int CMario::GetAniIdBig()
         }
         else
         {
-            if (nx >= 0)
+            if (nx >= 0) {
                 aniId = ID_ANI_MARIO_JUMP_WALK_RIGHT;
+            }
             else
                 aniId = ID_ANI_MARIO_JUMP_WALK_LEFT;
         }

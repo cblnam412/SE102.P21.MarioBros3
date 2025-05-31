@@ -39,6 +39,6 @@ void CBrickQuestion::sCoin() {
 
 void CBrickQuestion::sLeaf() {
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
-	CLeaf *leaf = new CLeaf(x, y - 16);
+	CLeaf *leaf = new CLeaf(x, y - 32);
 	scene->AddObject(leaf);
 }

@@ -10,8 +10,11 @@ void CLift::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
     prevX = x; 
     prevY = y;
 
-	y += vy	* dt;
-	x += vx * dt;
+    //if (isDropping) 
+    {
+        y += vy * dt;
+        x += vx * dt;
+    }
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -30,4 +33,12 @@ int CLift::IsDirectionColliable(float nx, float ny) {
 		return 1;
 	}
 	return 0;
+}
+
+void CLift::swapVXY() {
+    if (!isDropping) {
+        vx = 0;
+        vy = LIFT_SPEED_DROP;
+        isDropping = true;
+    }
 }

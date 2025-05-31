@@ -5,6 +5,7 @@
 #include "Animations.h"
 
 #define ID_ANI_BRICKQUESTION 18500
+#define ID_ANI_BRICKQUESTIONBRICK   18502
 #define ID_ANI_EMPTY_BRICKQUESTION 18501
 #define BRICKQUESTION_WIDTH 16
 #define BRICKQUESTION_BBOX_WIDTH 16
@@ -14,10 +15,12 @@ class CBrickQuestion : public CGameObject {
 protected:
 	int type;
 	int nObj;
+    int typebrick;
 public:
-	CBrickQuestion(float x, float y, int type, int nObj) : CGameObject(x, y) {
+	CBrickQuestion(float x, float y, int type, int nObj, int typebrick) : CGameObject(x, y) {
 		this->type = type;
 		this->nObj = nObj;
+        this->typebrick = typebrick;
 	}
 
 

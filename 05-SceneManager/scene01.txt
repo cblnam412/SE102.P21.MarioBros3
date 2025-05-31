@@ -7,14 +7,14 @@ brickquestion.txt
 coin.txt
 Lift.txt
 koopas.txt
+mushroom.txt
+leaf.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
 # type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas
 # See OBJECT_TYPE constants in AssetIDs.h
 
-//QUESTIONBRICK
-12	960	336	0	5
 
 # BRICKS
 1	256	336
@@ -52,14 +52,12 @@ koopas.txt
 
 1	944	320
 1	944	336
-1	960	336
 
 1	960	384
 1	976	384
 1	992	384
 1	1008	384
 
-1	1008	336
 1	1024	336
 1	1040	336
 1	1056	336
@@ -172,8 +170,11 @@ koopas.txt
 22	1792	400
 
 # MARIO
-0	1900	320
+0	1100	320
 
 #KOOPAS
 3	1984	308	0
 3	1872	288	210
+
+12	960	336	1	1	0
+12	1008	336	0	5	0

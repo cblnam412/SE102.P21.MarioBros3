@@ -123,7 +123,7 @@ void CKoopas::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e)
     {
         CPlayScene* current_scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
         CMario* mario = (CMario*)current_scene->GetPlayer();
-         if (mario->GetState() < MARIO_LEVEL_BIG)
+         if (mario->GetLevel() < MARIO_LEVEL_BIG)
              brickquestion->sMushroom();
          else brickquestion->sLeaf();
     }

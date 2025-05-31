@@ -7,8 +7,11 @@
 void CBrickQuestion::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
-	if (nObj > 0)
-		animations->Get(ID_ANI_BRICKQUESTION)->Render(x, y);
+    if (nObj > 0) {
+        if (typebrick == 1)
+            animations->Get(ID_ANI_BRICKQUESTION)->Render(x, y);
+        else animations->Get(ID_ANI_BRICKQUESTIONBRICK)->Render(x, y);
+    }
 	else animations->Get(ID_ANI_EMPTY_BRICKQUESTION)->Render(x, y);
 	//RenderBoundingBox();
 }

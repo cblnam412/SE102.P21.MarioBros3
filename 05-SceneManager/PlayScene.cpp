@@ -153,7 +153,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
     case OBJECT_TYPE_BRICKQUESTION: {
         int type = atoi(tokens[3].c_str());
         int nObj = atoi(tokens[4].c_str());
-        obj = new CBrickQuestion(x, y, type, nObj);
+        int typebrick = atoi(tokens[5].c_str());
+        obj = new CBrickQuestion(x, y, type, nObj, typebrick);
         break;
     }
     case OBJECT_TYPE_LIFT: {

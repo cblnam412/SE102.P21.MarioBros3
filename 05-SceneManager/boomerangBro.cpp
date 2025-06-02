@@ -5,23 +5,17 @@
 
 CboomerangBro::CboomerangBro(float x, float y) : CGameObject(x, y)
 {
+    this->Dir = 1;
     this->ax = 0;
     this->ay = BMRBRO_GRAVITY;
     die_start = -1;
     Friend_killed = false;
-    SetState(BMRBRO_STATE_WALKING);
+    SetState(BMRBRO_STATE_WALKING_LEFT);
 }
 
 void CboomerangBro::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-    if (state == BMRBRO_STATE_DIE)
-    {
-        left = x - BMRBRO_BBOX_WIDTH / 2;
-        top = y - BMRBRO_BBOX_HEIGHT_DIE / 2;
-        right = left + BMRBRO_BBOX_WIDTH;
-        bottom = top + BMRBRO_BBOX_HEIGHT_DIE;
-    }
-    else if (state == BMRBRO_STATE_WALKING)
+    if (state == BMRBRO_STATE_WALKING_LEFT)
     {
         left = x - BMRBRO_BBOX_WIDTH / 2;
         top = y - BMRBRO_BBOX_HEIGHT / 2;
@@ -63,9 +57,20 @@ void CboomerangBro::Move() {
     float x1, y1;
     mario->GetPosition(x1 , y1);
 
-    if (x1 < this->x)
+
+
+    if (x1 < this->x) {
+        Dir = 1;
         this->vx = BMRBRO_WALKING_SPEED;
-    else this->vx = -BMRBRO_WALKING_SPEED;
+        if (abs(this->x - x1) > 6 * 16)
+            this->vx = -BMRBRO_WALKING_SPEED;
+    }
+    else {
+        Dir = 0;
+        this->vx = -BMRBRO_WALKING_SPEED;
+        if (abs(this->x - x1) > 6 * 16)
+            this->vx = BMRBRO_WALKING_SPEED;
+    }
 }
 
 void CboomerangBro::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -88,7 +93,10 @@ void CboomerangBro::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CboomerangBro::Render()
 {
-    //CAnimations::GetInstance()->Get(aniId)->Render(x, y);
+    int aniId = ID_ANI_BMRBRO_WALKING_LEFT;
+    if (Dir == 0)
+        aniId = ID_ANI_BMRBRO_WALKING_RIGHT;
+    CAnimations::GetInstance()->Get(aniId)->Render(x, y);
     RenderBoundingBox();
 }
 
@@ -97,14 +105,7 @@ void CboomerangBro::SetState(int state)
     CGameObject::SetState(state);
     switch (state)
     {
-    case BMRBRO_STATE_DIE:
-        die_start = GetTickCount64();
-        y += (BMRBRO_BBOX_HEIGHT - BMRBRO_BBOX_HEIGHT_DIE) / 2;
-        vx = 0;
-        vy = 0;
-        ay = 0;
-        break;
-    case BMRBRO_STATE_WALKING:
+    case BMRBRO_STATE_WALKING_LEFT:
         vx = -BMRBRO_WALKING_SPEED;
         break;
     }

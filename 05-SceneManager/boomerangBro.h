@@ -11,17 +11,19 @@
 
 #define BMRBRO_DIE_TIMEOUT 500
 
-#define BMRBRO_STATE_WALKING 100
+#define BMRBRO_STATE_WALKING_LEFT 100
+#define BMRBRO_STATE_WALKING_RIGHT  200
 #define BMRBRO_STATE_DIE 200
 
-#define ID_ANI_BMRBRO_WALKING 13100
-#define ID_ANI_BMRBRO_DIE 5001	
+#define ID_ANI_BMRBRO_WALKING_LEFT 13100
+#define ID_ANI_BMRBRO_WALKING_RIGHT 13101
 
 class CboomerangBro : public CGameObject
 {
 protected:
     float ax;
     float ay;
+    int Dir;
     bool Friend_killed;
 
     ULONGLONG die_start;

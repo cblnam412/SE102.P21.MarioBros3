@@ -1,7 +1,8 @@
-#include "boomerangBro.h"
+﻿#include "boomerangBro.h"
 #include "EatEnemy.h"
 #include "PlayScene.h"
 #include "Mario.h"
+#include "boomerang.h"
 
 CboomerangBro::CboomerangBro(float x, float y) : CGameObject(x, y)
 {
@@ -9,19 +10,23 @@ CboomerangBro::CboomerangBro(float x, float y) : CGameObject(x, y)
     this->ax = 0;
     this->ay = BMRBRO_GRAVITY;
     die_start = -1;
-    Friend_killed = false;
+    
+    this->isJumping = false;
+    this->isThrowing = false;
+    this->throw_start = 0;
+    this->jump_start = 0;
+    last_throw_time = 0;
+    throwCount = 0;
+
     SetState(BMRBRO_STATE_WALKING_LEFT);
 }
 
 void CboomerangBro::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-    if (state == BMRBRO_STATE_WALKING_LEFT)
-    {
-        left = x - BMRBRO_BBOX_WIDTH / 2;
-        top = y - BMRBRO_BBOX_HEIGHT / 2;
-        right = left + BMRBRO_BBOX_WIDTH;
-        bottom = top + BMRBRO_BBOX_HEIGHT;
-    }
+     left = x - BMRBRO_BBOX_WIDTH / 2;
+     top = y - BMRBRO_BBOX_HEIGHT / 2;
+     right = left + BMRBRO_BBOX_WIDTH;
+     bottom = top + BMRBRO_BBOX_HEIGHT;
 }
 
 void CboomerangBro::OnNoCollision(DWORD dt)
@@ -57,7 +62,16 @@ void CboomerangBro::Move() {
     float x1, y1;
     mario->GetPosition(x1 , y1);
 
-
+    float distance = abs(x1 - this->x);
+    ULONGLONG current_time = GetTickCount64();
+    if (!isJumping && !isThrowing &&
+        distance <= 6 * 16 &&
+        distance >= 4 * 16 &&
+        (current_time - last_throw_time > BMRBRO_THROW_COOLDOWN))
+    {
+        SetState(BMRBRO_STATE_JUMP);
+        return;
+    }
 
     if (x1 < this->x) {
         Dir = 1;
@@ -75,16 +89,26 @@ void CboomerangBro::Move() {
 
 void CboomerangBro::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-    Move();
+    if (!isJumping && !isThrowing) {
+        Move();
+    }
+
     vy += ay * dt;
     vx += ax * dt;
 
-    if ((state == BMRBRO_STATE_DIE) && (GetTickCount64() - die_start > BMRBRO_DIE_TIMEOUT))
-    {
-        isDeleted = true;
-        return;
+    if (isJumping && (GetTickCount64() - jump_start > BMRBRO_JUMP_TIMEOUT)) {
+        SetState(BMRBRO_STATE_THROW);
     }
 
+    if (isThrowing && (GetTickCount64() - throw_start > BMRBRO_THROW_TIMEOUT)) {
+        isThrowing = false;
+        throwCount++;
+        last_throw_time = GetTickCount64();
+
+        CBoomerang* boomerang = new CBoomerang(x, y, Dir);
+        CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+        scene->AddObject(boomerang);
+    }
 
     CGameObject::Update(dt, coObjects);
     CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -107,6 +131,20 @@ void CboomerangBro::SetState(int state)
     {
     case BMRBRO_STATE_WALKING_LEFT:
         vx = -BMRBRO_WALKING_SPEED;
+        vy = 0;
+        break;
+    case BMRBRO_STATE_JUMP:
+        vy = -BMRBRO_JUMP_SPEED;
+        isJumping = true;
+        jump_start = GetTickCount64();
+        break;
+
+    case BMRBRO_STATE_THROW:
+        vx = 0; 
+        vy = 0; 
+        isJumping = false;
+        isThrowing = true;
+        throw_start = GetTickCount64();
         break;
     }
 }

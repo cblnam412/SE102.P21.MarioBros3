@@ -114,6 +114,9 @@
     <ClCompile Include="boomerangBro.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="boomerang.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -222,6 +225,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="boomerangBro.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="boomerang.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -9,6 +9,7 @@ Lift.txt
 koopas.txt
 mushroom.txt
 leaf.txt
+boomerangbro.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -170,7 +171,7 @@ leaf.txt
 22	1792	400
 
 # MARIO
-0	1100	320
+0	2200	320
 
 #KOOPAS
 3	1984	308	0
@@ -178,3 +179,6 @@ leaf.txt
 
 12	960	336	1	1	0
 12	1008	336	0	5	0
+
+#BOOMERANG_BRO
+23	2096	368

@@ -20,6 +20,7 @@
 #include "EatEnemy.h"
 #include "Teleport.h"
 #include "Lift.h"
+#include "boomerangBro.h"
 using namespace std;
 
 CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
@@ -224,7 +225,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
         obj = new Teleport(x, y, r, b);
         break;
     }
-
+    case    OBJECT_TYPE_BOOMERANGBRO:
+    {
+        obj = new CboomerangBro(x, y);
+        break;
+    }
     default:
         DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
         return;

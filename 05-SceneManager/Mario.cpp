@@ -361,6 +361,7 @@ void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
         }
         else if (brickquestion->getType() == 0) {
             brickquestion->sCoin();
+            coin++;
         }
     }
 }

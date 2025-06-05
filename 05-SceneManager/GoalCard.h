@@ -22,12 +22,14 @@ class CGoalCard : public CGameObject
 {
     int card;
     bool isCollected;
+    bool isEaten;
     ULONGLONG start_change;
    
 public:
     CGoalCard(float x, float y) : CGameObject(x, y) {
         card = GOALCARD_MUSHROOM;
         isCollected = false;
+        isEaten = false;
         start_change = GetTickCount64();
     }
     void Render();

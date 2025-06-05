@@ -45,6 +45,7 @@ void CGoalCard::SetState(int state) {
     switch (state) {
     case CARD_STATE_COLLECTED:
         isCollected = true;
+        isEaten = true;
         vy = -SPEED_GOALCARD;
         break;
     }

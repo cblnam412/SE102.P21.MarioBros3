@@ -1,0 +1,29 @@
+# id	left	top	right	bottom	texture_id
+[SPRITES]
+
+# Text course clear
+19080004	64	360	182	375	90
+
+# Text you got a card
+19080005	53	391	202	418	90
+
+# Reward mushroom
+19080006	278	394	293	409	90
+
+# Reward flower
+19080007	260	394	276	409	90
+
+# Reward star
+19080008	295	394	312	409	90	
+
+
+
+# ani_id	sprite1_id	time1	sprite2_id	time2	...
+[ANIMATIONS]
+190804	19080004	100
+190805	19080005	100
+190806	19080006	100
+190807	19080007	100
+190808	19080008	100
+	
+

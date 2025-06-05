@@ -22,6 +22,8 @@
 #include "Lift.h"
 #include "boomerangBro.h"
 #include "GoalCard.h"
+#include"EndGameEffect.h"
+
 using namespace std;
 
 CPlayScene::CPlayScene(int id, LPCWSTR filePath) :

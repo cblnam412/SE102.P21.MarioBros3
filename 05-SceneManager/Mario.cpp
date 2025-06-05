@@ -20,6 +20,7 @@
 #include "Lift.h"
 #include"Brick.h"
 #include"GoalCard.h"
+#include "EndGameEffect.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -109,6 +110,40 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
         }
         return;
     }
+
+    if (isClearingCourse)
+    {
+        if (!isAutoRunning)
+        {
+            StartAutoRun();
+        }
+
+        if (isAutoRunning)
+        {
+          
+            SetState(MARIO_STATE_RUNNING_RIGHT); 
+
+            if (x >= 2800) 
+            {
+                vx = 0;
+                StopAutoRun();
+            }
+
+            CGameObject::Update(dt, coObjects);
+            CCollision::GetInstance()->Process(this, dt, coObjects);
+            return;
+        }
+    }
+    if (x >= 2800)
+    {
+        vx = 0;
+        StopAutoRun();
+        SetState(MARIO_STATE_IDLE);
+
+        ShowCourseClearEffect();
+    }
+
+
 
     CCollision::GetInstance()->Process(this, dt, coObjects);
     if (isSlidingWait)
@@ -345,13 +380,13 @@ void CMario::OnCollisionWithBrick(LPCOLLISIONEVENT e)
         CGoalCard* card = dynamic_cast<CGoalCard*>(e->obj);
         if (!card || card->GetCollected()) return;
 
-        // Đánh dấu đã thu thập
+       
         card->SetState(CARD_STATE_COLLECTED);
 
-        // Lưu card vào slot trống đầu tiên
+        
         int collectedCard = card->GetCard();
 
-        if (card1 == -1)      // giả sử mặc định là -1 nếu chưa có
+        if (card1 == -1)      
             card1 = collectedCard;
         else if (card2 == -1)
             card2 = collectedCard;
@@ -360,10 +395,12 @@ void CMario::OnCollisionWithBrick(LPCOLLISIONEVENT e)
 
         cardCollected = collectedCard;
 
-        // Đặt trạng thái kết thúc màn chơi cho Mario
+        
         SetState(MARIO_STATE_END_SCENE);
+        StartAutoRun();
 
-        DebugOut(L"[INFO] Mario collected GoalCard: %d\n", collectedCard);
+        SetClearingCourse(true); 
+       
     }
 
 void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e) {
@@ -984,5 +1021,20 @@ void CMario::ThrowKoopas() {
         heldKoopas->setVX(nx > 0 ? KOOPAS_ROTATE_SPEED : -KOOPAS_ROTATE_SPEED);
         heldKoopas->setXY(hkx, hky - 8);
         heldKoopas = nullptr;
+    }
+}
+
+void CMario::ShowCourseClearEffect()
+{
+    CPlayScene* scene = dynamic_cast<CPlayScene*>(CGame::GetInstance()->GetCurrentScene());
+    if (scene)
+    {
+        float fx, fy;
+        GetPosition(fx, fy);
+        fx += 32;
+        fy -= 32;
+
+        CEndGameEffect* effect = new CEndGameEffect(fx, fy, cardCollected);
+        scene->AddObject(effect);
     }
 }

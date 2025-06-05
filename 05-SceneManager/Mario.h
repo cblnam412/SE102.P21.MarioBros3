@@ -245,6 +245,7 @@ public:
 	void SetState(int state);
 
     //Mario tuot xuong pipe
+    void ShowCourseClearEffect();
     void TeleportToDestination();
     void StartSlideDownPipe();
     float slideTargetY = 0;
@@ -267,7 +268,7 @@ public:
     int card2 = -1;
     int card3 = -1;
     int cardCollected = -1;
-    
+    bool isAutoRunning = false;
 
     void ThrowKoopas();
 
@@ -321,4 +322,7 @@ public:
     bool isClearingCourse = false;
     bool IsClearingCourse() { return isClearingCourse; }
     void SetClearingCourse(bool value) { isClearingCourse = value; }
+    bool IsAutoRunning() { return isAutoRunning; }
+    void StartAutoRun() { isAutoRunning = true; }
+    void StopAutoRun() { isAutoRunning = false; }
 };

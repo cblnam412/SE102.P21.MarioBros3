@@ -21,6 +21,7 @@
 #include "Teleport.h"
 #include "Lift.h"
 #include "boomerangBro.h"
+#include "GoalCard.h"
 using namespace std;
 
 CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
@@ -168,6 +169,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
         obj = new CBullet(x, y, -0.05f, 0);
     }
     break;
+    case OBJECT_TYPE_GOALCARD: obj = new CGoalCard(x, y); break;
     case OBJECT_TYPE_PLATFORM:
     {
 

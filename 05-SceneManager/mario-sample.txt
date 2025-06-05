@@ -22,3 +22,5 @@ height	240
 50	textures\mariotiles.png
 60	textures\misc-2.png
 70	textures\Demo.png
+80	textures\reward.png
+90	textures\ItemCard.png

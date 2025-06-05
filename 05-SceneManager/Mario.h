@@ -5,7 +5,7 @@
 #include "Animation.h"
 #include "Animations.h"
 #include"Teleport.h"
-
+#include "GoalCard.h"
 #include "debug.h"
 
 #define MARIO_WALKING_SPEED		0.1f
@@ -34,7 +34,7 @@
 
 #define MARIO_STATE_SIT				600
 #define MARIO_STATE_SIT_RELEASE		601
-
+#define MARIO_STATE_END_SCENE 999 
 
 #pragma region ANIMATION_ID
 
@@ -206,6 +206,7 @@ class CMario : public CGameObject
 	void OnCollisionWithTeleport(LPCOLLISIONEVENT e);
 	void OnCollisionWithLift(LPCOLLISIONEVENT e);
     void OnCollisionWithBrick(LPCOLLISIONEVENT e);
+    void OnCollisionWithGoalCard(LPCOLLISIONEVENT e);
 	int GetAniIdBig();
 	int GetAniIdSmall();
 	int GetAniIdTail();
@@ -237,8 +238,7 @@ public:
 		untouchable = 0;
 		untouchable_start = -1;
 		isOnPlatform = false;
-		coin = 0;
-		
+        coin = 0;
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
@@ -263,7 +263,11 @@ public:
     float slideStartY;
     bool isSlidingWait = false;
     bool isRisingWait = false;
-
+    int card1 = -1;
+    int card2 = -1;
+    int card3 = -1;
+    int cardCollected = -1;
+    
 
     void ThrowKoopas();
 
@@ -313,4 +317,8 @@ public:
 
     bool GetIsRisingWait() const { return isRisingWait; }
     void SetRisingWait(bool val) { isRisingWait = val; }
+
+    bool isClearingCourse = false;
+    bool IsClearingCourse() { return isClearingCourse; }
+    void SetClearingCourse(bool value) { isClearingCourse = value; }
 };

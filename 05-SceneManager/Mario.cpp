@@ -19,6 +19,7 @@
 #include "Teleport.h"
 #include "Lift.h"
 #include"Brick.h"
+#include"GoalCard.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -185,6 +186,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
         OnCollisionWithLift(e);
     else if (dynamic_cast<CBrick*>(e->obj))
         OnCollisionWithBrick(e);
+    else if (dynamic_cast<CGoalCard*>(e->obj))
+        OnCollisionWithGoalCard(e);
 }
 
 
@@ -337,6 +340,31 @@ void CMario::OnCollisionWithBrick(LPCOLLISIONEVENT e)
         SetLevel(MARIO_LEVEL_TAIL);
     }
 }
+    void CMario::OnCollisionWithGoalCard(LPCOLLISIONEVENT e)
+    {
+        CGoalCard* card = dynamic_cast<CGoalCard*>(e->obj);
+        if (!card || card->GetCollected()) return;
+
+        // Đánh dấu đã thu thập
+        card->SetState(CARD_STATE_COLLECTED);
+
+        // Lưu card vào slot trống đầu tiên
+        int collectedCard = card->GetCard();
+
+        if (card1 == -1)      // giả sử mặc định là -1 nếu chưa có
+            card1 = collectedCard;
+        else if (card2 == -1)
+            card2 = collectedCard;
+        else
+            card3 = collectedCard;
+
+        cardCollected = collectedCard;
+
+        // Đặt trạng thái kết thúc màn chơi cho Mario
+        SetState(MARIO_STATE_END_SCENE);
+
+        DebugOut(L"[INFO] Mario collected GoalCard: %d\n", collectedCard);
+    }
 
 void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e) {
     e->obj->Delete();

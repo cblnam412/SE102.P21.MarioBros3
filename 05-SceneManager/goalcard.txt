@@ -1,0 +1,20 @@
+# id	left	top	right	bottom	texture_id
+[SPRITES]
+
+#MUSHROOM
+19080001	438	350	457	369	90
+
+#plant
+19080002	410	350	429	369	90
+
+#star
+19080003	382	350	401	369	90
+
+
+# ani_id	sprite1_id	time1	sprite2_id	time2	...
+[ANIMATIONS]
+190801	19080001	100
+190802	19080002	100
+190803	19080003	100
+	
+

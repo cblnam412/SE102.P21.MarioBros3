@@ -24,3 +24,5 @@ height	240
 70	textures\Demo.png
 80	textures\reward.png
 90	textures\ItemCard.png
+100	textures\HUD.png
+110	textures\HUD2.png

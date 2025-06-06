@@ -14,6 +14,8 @@
 #define ID_TEX_DEMO 70
 #define ID_TEX_REWARD 80
 #define ID_TEX_ITEMCARD 90
+#define ID_TEX_HUD  100
+#define ID_TEX_HUD2 110
 
 #define OBJECT_TYPE_MARIO	0
 #define OBJECT_TYPE_BRICK	1

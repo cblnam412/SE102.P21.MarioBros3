@@ -115,6 +115,7 @@ void CKoopas::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e)
         return;
     CBrickQuestion* brickquestion = dynamic_cast<CBrickQuestion*>(e->obj);
     
+    brickquestion->setKoopasOn(true);
 
     brickquestion->decnObj();
 

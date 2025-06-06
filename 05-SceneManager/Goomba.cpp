@@ -80,7 +80,6 @@ void CGoomba::Render()
 	}
 	if (!Friend_killed)
 		CAnimations::GetInstance()->Get(aniId)->Render(x,y);
-	else CAnimations::GetInstance()->Get(aniId)->RenderFlip(x, y);
 	//RenderBoundingBox();
 }
 

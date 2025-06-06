@@ -20,6 +20,7 @@ protected:
     int typebrick;
 
     bool isJumping = false;
+    bool koopasOn = false;
     float oldY;
     ULONGLONG jumpStartTime = 0;
 public:
@@ -48,6 +49,18 @@ public:
 	void decnObj() {
 		this->nObj--;
 	}
+
+    bool getJumping() {
+        return isJumping;
+    }
+
+    void setKoopasOn(bool ok) {
+        this->koopasOn = ok;
+    }
+
+    bool getKoopasOn() {
+        return this->koopasOn;
+    }
 
 	void sMushroom();
 	void sCoin();

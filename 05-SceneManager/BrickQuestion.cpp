@@ -3,6 +3,7 @@
 #include "Mushroom.h"
 #include "Coin.h"
 #include "Leaf.h"
+#include "Koopas.h"
 
 void CBrickQuestion::Render()
 {

@@ -22,6 +22,7 @@
 #include "Lift.h"
 #include "boomerangBro.h"
 #include "GoalCard.h"
+#include "HUD.h"
 #include"EndGameEffect.h"
 
 using namespace std;
@@ -221,7 +222,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
         break;
     }
-
+    case OBJECT_TYPE_HUB: {
+        obj = new CHUB(x, y);
+        break;
+    }
     case OBJECT_TYPE_TELEPORT:
     {
         float r = (float)atof(tokens[3].c_str());

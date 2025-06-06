@@ -299,6 +299,8 @@ public:
 	float GetY() { return y; }
 	float GetVX() { return vx; }
 
+
+
 	int GetLevel() { return level; }
 	void GetPosition(float& x, float& y);
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
@@ -325,4 +327,8 @@ public:
     bool IsAutoRunning() { return isAutoRunning; }
     void StartAutoRun() { isAutoRunning = true; }
     void StopAutoRun() { isAutoRunning = false; }
+
+    int getCoins() {
+        return this->coin;
+    }
 };

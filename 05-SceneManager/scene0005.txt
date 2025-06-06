@@ -14,7 +14,7 @@ mushroom.txt
 koopas.txt
 goalcard.txt
 endgameeffect.txt
-
+hud.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -288,5 +288,4 @@ endgameeffect.txt
 11	1450	25	16	15	1	1094002	1094002	1094002
 
 
-
-
+25	100	370

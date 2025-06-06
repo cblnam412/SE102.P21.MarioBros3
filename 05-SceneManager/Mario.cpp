@@ -403,12 +403,21 @@ void CMario::OnCollisionWithBrick(LPCOLLISIONEVENT e)
        
     }
 
-void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e) {
-    e->obj->Delete();
-    if (level < MARIO_LEVEL_BIG) {
-        SetLevel(MARIO_LEVEL_BIG);
+    void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e) {
+        CMushroom* mushroom = dynamic_cast<CMushroom*>(e->obj);
+        if (mushroom == nullptr) return;
+
+        if (mushroom->IsGreen()) {
+            mushroom->Trigger1Up();          
+            mushroom->SetEaten(true);         
+            return;                          
+        }
+
+        if (level < MARIO_LEVEL_BIG) {
+            SetLevel(MARIO_LEVEL_BIG);
+        }
+        mushroom->SetEaten(true);
     }
-}
 
 void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
 
@@ -487,7 +496,6 @@ void CMario::OnCollisionWithPlant(LPCOLLISIONEVENT e)
         if (auto plant = dynamic_cast<CPlantEnemy*>(e->obj))
             {
             plant->Delete();
-            DebugOut(L"[TAIL ATTACK] PlantEnemy bị hạ gục bằng đuôi! \n");
             return;
             }
         }

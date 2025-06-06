@@ -21,6 +21,9 @@ void CMushroom::Render()
 {
 
 	CAnimations* animations = CAnimations::GetInstance();
+    if (isGreen)
+        animations->Get(ID_ANI_GREEN_MUSHROOM)->Render(x, y);
+    else
 	animations->Get(ID_ANI_MUSHROOM)->Render(x, y);
 
 	//RenderBoundingBox();

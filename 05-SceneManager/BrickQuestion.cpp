@@ -1,4 +1,4 @@
-#include "BrickQuestion.h"
+﻿#include "BrickQuestion.h"
 #include "PlayScene.h"
 #include "Mushroom.h"
 #include "Coin.h"
@@ -70,4 +70,11 @@ void CBrickQuestion::sLeaf() {
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	CLeaf *leaf = new CLeaf(x, y - 32);
 	scene->AddObject(leaf);
+}
+
+void CBrickQuestion::sGreenMushroom() {
+    CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+    CMushroom* gmroom = new CMushroom(x, y - 16);  
+    gmroom->SetGreen(true); 
+    scene->AddObject(gmroom);
 }

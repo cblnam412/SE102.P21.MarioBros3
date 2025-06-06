@@ -428,6 +428,10 @@ void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
             brickquestion->sCoin();
             coin++;
         }
+        else if (brickquestion->getType() == 2) 
+        {
+            brickquestion->sGreenMushroom();
+        }
     }
 }
 

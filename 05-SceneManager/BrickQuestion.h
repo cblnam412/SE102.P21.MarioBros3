@@ -58,10 +58,6 @@ public:
         this->koopasOn = ok;
     }
 
-    bool getKoopasOn() {
-        return this->koopasOn;
-    }
-
 	void sMushroom();
 	void sCoin();
 	void sLeaf();

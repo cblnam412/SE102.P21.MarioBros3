@@ -77,10 +77,11 @@ void CGoomba::Render()
 	if (state == GOOMBA_STATE_DIE) 
 	{
 		aniId = ID_ANI_GOOMBA_DIE;
-	}
-	if (!Friend_killed)
-		CAnimations::GetInstance()->Get(aniId)->Render(x,y);
-	//RenderBoundingBox();
+    }
+    else if (state == GOOMBA_STATE_DIE_2) {
+        aniId = ID_ANI_GOOMBA_DIE_2;
+    }
+	CAnimations::GetInstance()->Get(aniId)->Render(x,y);
 }
 
 void CGoomba::SetState(int state)
@@ -98,5 +99,10 @@ void CGoomba::SetState(int state)
 		case GOOMBA_STATE_WALKING: 
 			vx = -GOOMBA_WALKING_SPEED;
 			break;
+        case GOOMBA_STATE_DIE_2:
+            Friend_killed = true;
+            y -= 32;
+            x -= 4;
+            break;
 	}
 }

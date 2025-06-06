@@ -13,7 +13,7 @@ void CHUB::Render(){
     RenderNumber(coins, x + 60, y - 3, 2); 
     RenderNumber(3, x - 43, y + 5, 2);
 
-    RenderNumber(0, x - 20, y + 5, 7);
+    RenderNumber(score, x - 20, y + 5, 7);
     RenderNumber(timeLeft, x + 52, y + 5, 3);
     RenderNumber(1, x - 35, y - 3, 1);
 }
@@ -50,6 +50,7 @@ void CHUB::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
         x = 80.0f;
 
     coins = mario->getCoins();
+    score = mario->getPoint();
 
     ULONGLONG now = GetTickCount64();
     if (now - timeNow >= 1000) {

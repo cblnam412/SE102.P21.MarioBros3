@@ -339,9 +339,9 @@ void CPlayScene::Update(DWORD dt)
     // skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
     if (player == NULL) return;
 
-    if (this->id == 1) {
+    if (this->id == 100) {
         static float scrollX = 0;
-        scrollX += 0.01f * dt; 
+        scrollX += 0.03f * dt; 
         CGame::GetInstance()->SetCamPos(scrollX, 0.0f);
     }
     else {

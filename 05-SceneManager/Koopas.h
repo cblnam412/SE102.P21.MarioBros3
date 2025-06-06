@@ -49,13 +49,14 @@ protected:
     int   dirY;
 
 	bool killFriend;
+    bool onBQ;
 
     COKR* okr;
 
 	void OnCollisionWithBrick(LPCOLLISIONEVENT e);
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
-	void OnCollisionWithKoopas(LPCOLLISIONEVENT e) {};
-	void OnCollisionWithPlant(LPCOLLISIONEVENT e) {};
+	void OnCollisionWithKoopas(LPCOLLISIONEVENT e);
+	void OnCollisionWithPlant(LPCOLLISIONEVENT e);
     void OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e);
 
 public:
@@ -87,6 +88,10 @@ public:
 	int getAni() {
 		return	7000 + type + state;
 	}
+
+    void setKillFriend(bool ok) {
+        this->killFriend = ok;
+    }
 	
 	int getType() {
 		return type;
@@ -94,5 +99,9 @@ public:
 
     void setType(int type) {
         this->type = type;
+    }
+
+    bool getOnQB() {
+        return onBQ;
     }
 };

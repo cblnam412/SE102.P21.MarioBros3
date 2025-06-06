@@ -9,6 +9,7 @@
 #include "PlayScene.h"
 #include "Mario.h"
 #include "BrickQuestion.h"
+#include "PlantEnemy.h"
 
 CKoopas::CKoopas(float x, float y, int type) : CGameObject(x, y)
 {
@@ -67,7 +68,6 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 		return;
 	}
 	//if (!e->obj->IsBlocking()) return;
-	if (dynamic_cast<CKoopas*>(e->obj)) return;
 
     if (dynamic_cast<CMario*>(e->obj))
         return;
@@ -107,6 +107,24 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
     else if (dynamic_cast<CBrickQuestion*>(e->obj)) {
         OnCollisionWithBrickQuestion(e);
     }
+    else if (dynamic_cast<CKoopas*>(e->obj))
+        OnCollisionWithKoopas(e);
+    else if (dynamic_cast<CPlantEnemy*>(e->obj)) {
+        OnCollisionWithPlant(e);
+    }
+}
+void CKoopas::OnCollisionWithPlant(LPCOLLISIONEVENT e) {
+    CPlantEnemy* plant = dynamic_cast<CPlantEnemy*>(e->obj);
+    plant->Delete();
+}
+void CKoopas::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
+{
+    CKoopas* otherKoopas = dynamic_cast<CKoopas*>(e->obj);
+
+    if (this->killFriend)
+    {
+        otherKoopas->Delete();
+    }
 }
 
 void CKoopas::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e)
@@ -115,7 +133,8 @@ void CKoopas::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e)
         return;
     CBrickQuestion* brickquestion = dynamic_cast<CBrickQuestion*>(e->obj);
     
-    brickquestion->setKoopasOn(true);
+    if (brickquestion->getJumping())
+        this->Delete();
 
     brickquestion->decnObj();
 
@@ -145,8 +164,13 @@ void CKoopas::OnCollisionWithBrick(LPCOLLISIONEVENT e)
 void CKoopas::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 {
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
-
-	goomba->setFriendKilled(true);
+    goomba->SetState(GOOMBA_STATE_DIE_2);
+    if (state == KOOPAS_STATE_SHELL) {
+        CPlayScene* current_scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+        CMario* mario = (CMario*)current_scene->GetPlayer();
+        mario->releaseKoopas();
+        this->Delete();
+    }
 }
 
 void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -168,7 +192,6 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (state == KOOPAS_STATE_SHELL)
 	{
-		killFriend = false;
 		DWORD shell_time = GetTickCount64() - shell_start;
 
 		if (shell_time > KOOPAS_SHELL_TIMEOUT)
@@ -245,6 +268,7 @@ void CKoopas::SetState(int state)
 	case KOOPAS_STATE_SHELL:
 		shell_start = GetTickCount64();
 		vx = 0;
+        killFriend = false;
 		break;
 
 	case KOOPAS_STATE_WALKING_LEFT:
@@ -289,6 +313,8 @@ bool CKoopas::checkReturn(LPCOLLISIONEVENT e) {
 
 	float l, t, r, b;
 	e->obj->GetBoundingBox(l, t, r, b);
+
+    onBQ = (dynamic_cast<CBrickQuestion*>(e->obj));
 
     if (l > checkX && state == KOOPAS_STATE_WALKING_LEFT) {
         if (Await <= 0) {

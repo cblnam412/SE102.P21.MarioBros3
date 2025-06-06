@@ -191,6 +191,7 @@ class CMario : public CGameObject
 
 	BOOLEAN isOnPlatform;
 	int coin; 
+    int point;
     
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithParaGoomba(LPCOLLISIONEVENT e);
@@ -323,6 +324,11 @@ public:
     bool GetIsRisingWait() const { return isRisingWait; }
     void SetRisingWait(bool val) { isRisingWait = val; }
 
+    void releaseKoopas() {
+        isHolding = false;
+        this->heldKoopas = nullptr;
+    }
+
     bool isClearingCourse = false;
     bool IsClearingCourse() { return isClearingCourse; }
     void SetClearingCourse(bool value) { isClearingCourse = value; }
@@ -332,5 +338,8 @@ public:
 
     int getCoins() {
         return this->coin;
+    }
+    int getPoint() {
+        return this->point;
     }
 };

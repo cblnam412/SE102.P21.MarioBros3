@@ -16,6 +16,7 @@
 #define ID_TEX_ITEMCARD 90
 #define ID_TEX_HUD  100
 #define ID_TEX_HUD2 110
+#define ID_TEX_ENEMY4   120
 
 #define OBJECT_TYPE_MARIO	0
 #define OBJECT_TYPE_BRICK	1

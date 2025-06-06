@@ -283,6 +283,7 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
             if (isHolding == false) {
                 isHolding = true;
                 heldKoopas = koopas;
+                heldKoopas->setKillFriend(true);
             }
         }
         else {
@@ -295,6 +296,7 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
     }
     else if (e->ny < 0)
     {
+        point += 100;
         if (koopas->getType() == 200) {
             koopas->setType(100);
         }
@@ -344,6 +346,7 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
         if (abs(dx) <= 20 && abs(dy) <= 16)
         {
             goomba->SetState(GOOMBA_STATE_DIE);
+            point += 100;
             return;
         }
     }
@@ -380,6 +383,7 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
     e->obj->Delete();
     coin++;
+    point += 100;
 }
 void CMario::OnCollisionWithBrick(LPCOLLISIONEVENT e)
 {
@@ -416,6 +420,7 @@ void CMario::OnCollisionWithBrick(LPCOLLISIONEVENT e)
     void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e)
 {
     e->obj->Delete();
+    point += 100;
     if (level < MARIO_LEVEL_TAIL) {
         SetLevel(MARIO_LEVEL_TAIL);
     }
@@ -481,6 +486,7 @@ void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
         else if (brickquestion->getType() == 0) {
             brickquestion->sCoin();
             coin++;
+            point += 100;
         }
         else if (brickquestion->getType() == 2) 
         {
@@ -602,6 +608,7 @@ void CMario::OnCollisionWithParagoomba(LPCOLLISIONEVENT e)
 
         if (abs(dx) <= 20 && abs(dy) <= 16)
         {
+            point += 100;
             paragoomba->SetState(PARAGOOMBA_STATE_DIE);
             return;
         }

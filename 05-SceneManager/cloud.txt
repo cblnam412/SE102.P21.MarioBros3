@@ -110,6 +110,11 @@
 //KhungdentrongCard
 1093000	369	259	398	286	90
 
+//backgrounditem
+1094000	256	371	274	390	90
+1094001	275	371	294	390	90
+1094002	294	371	315	390	90
+
 # ani_id	sprite1_id	time1	sprite2_id	time2	...
 [ANIMATIONS]
 

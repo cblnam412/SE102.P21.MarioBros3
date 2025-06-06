@@ -10,14 +10,7 @@ void CHUB::Render(){
 
     s->Get(ID_HUD_FRAME)->Draw(x, y);
 
-    /*s->Get(ID_ANI_HUD_FRAME)->Draw(x + 10, y + 5);
-
-    for (int i = 0; i < 5; i++) {
-        int ani = (i < speedLevel) ? ID_ANI_TRIANGLE_ON : ID_ANI_TRIANGLE_OFF;
-        s->Get(ID_ANI_HUD_FRAME)->Draw(x + 70 + i * 10, y + 5);
-    }*/
     RenderNumber(coins, x + 60, y - 3, 2); 
-    //s->Get(ID_HUD_M)->Draw(x + 10, y + 25);
     RenderNumber(3, x - 43, y + 5, 2);
 
     RenderNumber(0, x - 20, y + 5, 7);

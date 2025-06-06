@@ -21,6 +21,8 @@
 #include"Brick.h"
 #include"GoalCard.h"
 #include "EndGameEffect.h"
+#include "boomerang.h"
+#include "boomerangBro.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -223,8 +225,51 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
         OnCollisionWithBrick(e);
     else if (dynamic_cast<CGoalCard*>(e->obj))
         OnCollisionWithGoalCard(e);
+    else if (dynamic_cast<CBoomerang*>(e->obj)) 
+        OnCollisionWithBoomerang(e);
+    else if (dynamic_cast<CboomerangBro*>(e->obj)) 
+        OnCollisionWithBoomerangBro(e);
+    
 }
 
+void CMario::OnCollisionWithBoomerangBro(LPCOLLISIONEVENT e) {
+    if (untouchable) return;
+
+    if (e->ny < 0) {
+        e->obj->Delete();
+        vy = -0.2f; 
+    }
+    else {
+        if (level == MARIO_LEVEL_TAIL) {
+            SetLevel(MARIO_LEVEL_BIG);
+            StartUntouchable();
+        }
+        else if (level == MARIO_LEVEL_BIG) {
+            SetLevel(MARIO_LEVEL_SMALL);
+            StartUntouchable();
+        }
+        else {
+            SetState(MARIO_STATE_DIE);
+        }
+    }
+}
+
+
+void CMario::OnCollisionWithBoomerang(LPCOLLISIONEVENT e) {
+    if (untouchable) return;
+
+    if (level == MARIO_LEVEL_TAIL) {
+        SetLevel(MARIO_LEVEL_BIG);
+        StartUntouchable();
+    }
+    else if (level == MARIO_LEVEL_BIG) {
+        SetLevel(MARIO_LEVEL_SMALL);
+        StartUntouchable();
+    }
+    else {
+        SetState(MARIO_STATE_DIE);
+    }
+}
 
 void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 {

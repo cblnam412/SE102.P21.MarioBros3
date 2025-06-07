@@ -44,5 +44,5 @@ void COKR::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void COKR::Render()
 {
-    RenderBoundingBox();
+    //RenderBoundingBox();
 }
